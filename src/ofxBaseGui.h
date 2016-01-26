@@ -102,6 +102,9 @@ protected:
 	static void loadStencilFromHex(ofImage& img, unsigned char* data) ;
 
 	virtual void generateDraw(){};
+    
+    //draggable gui
+    bool draggable;
 
 private:
 	unsigned long currentFrame;
