@@ -40,7 +40,9 @@ public:
 	virtual bool mouseDragged(ofMouseEventArgs & args);
 	virtual bool mouseReleased(ofMouseEventArgs & args);
 	
-	
+    virtual void keyPressed(ofKeyEventArgs &args){return false;}
+    virtual void keyReleased(ofKeyEventArgs &args){return false;}
+    
 	vector<string> getControlNames();
 	int getNumControls();
     
@@ -57,6 +59,9 @@ public:
 
 	virtual void setPosition(ofPoint p);
 	virtual void setPosition(float x, float y);
+    
+    //custom
+    void setClicked(bool click_);
 protected:
 	virtual void render();
     virtual bool setValue(float mx, float my, bool bCheck);

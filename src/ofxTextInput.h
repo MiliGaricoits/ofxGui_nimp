@@ -57,7 +57,6 @@ protected:
     string text;
     ofPath bg;
     ofVboMesh textMesh;
-    bool clicked;
     bool bGuiActive;
     float lastTimeCursorMoved;
     unsigned int cursorPosition;

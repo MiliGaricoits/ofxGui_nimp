@@ -71,6 +71,7 @@ ofxBaseGui::ofxBaseGui(){
     thisFillColor=fillColor;
     
     bRegisteredForMouseEvents = false;
+    bRegisteredForKeyEvents = false;
     
     /*if(!fontLoaded){
      loadFont(OF_TTF_MONO,10,true,true);
@@ -79,6 +80,7 @@ ofxBaseGui::ofxBaseGui(){
     
     //draggable gui
     draggable = true;
+    clicked = false;
 }
 
 void ofxBaseGui::loadFont(string filename, int fontsize, bool _bAntiAliased, bool _bFullCharacterSet, int dpi){
@@ -106,12 +108,28 @@ void ofxBaseGui::registerMouseEvents(){
     ofRegisterMouseEvents(this, OF_EVENT_ORDER_BEFORE_APP);
 }
 
+void ofxBaseGui::registerKeyEvents(){
+    if(bRegisteredForKeyEvents == true) {
+        return; // already registered.
+    }
+    bRegisteredForKeyEvents = true;
+    ofRegisterKeyEvents(this, OF_EVENT_ORDER_BEFORE_APP);
+}
+
 void ofxBaseGui::unregisterMouseEvents(){
     if(bRegisteredForMouseEvents == false) {
         return; // not registered.
     }
     ofUnregisterMouseEvents(this, OF_EVENT_ORDER_BEFORE_APP);
     bRegisteredForMouseEvents = false;
+}
+
+void ofxBaseGui::unregisterKeyEvents(){
+    if(bRegisteredForKeyEvents == false) {
+        return; // not registered.
+    }
+    ofUnregisterKeyEvents(this, OF_EVENT_ORDER_BEFORE_APP);
+    bRegisteredForKeyEvents = false;
 }
 
 void ofxBaseGui::draw(){

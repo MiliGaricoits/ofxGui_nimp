@@ -60,13 +60,22 @@ public:
 	static void loadFont(string filename, int fontsize, bool _bAntiAliased=true, bool _bFullCharacterSet=false, int dpi=0);
 	static void setUseTTF(bool bUseTTF);
     
+    //custom
+    void setDraggable(bool drag_) { draggable = drag_; };
+    virtual void setClicked(bool click_) { clicked = click_; };
+
     void registerMouseEvents();
+    void registerKeyEvents();
     void unregisterMouseEvents();
+    void unregisterKeyEvents();
 
 	virtual bool mouseMoved(ofMouseEventArgs & args) = 0;
 	virtual bool mousePressed(ofMouseEventArgs & args) = 0;
 	virtual bool mouseDragged(ofMouseEventArgs & args) = 0;
 	virtual bool mouseReleased(ofMouseEventArgs & args) = 0;
+    
+    virtual void keyPressed(ofKeyEventArgs &args) = 0;
+    virtual void keyReleased(ofKeyEventArgs &args) = 0;
 protected:
 	virtual void render()=0;
 	bool isGuiDrawing();
@@ -103,10 +112,12 @@ protected:
 
 	virtual void generateDraw(){};
     
-    //draggable gui
+    //custom
     bool draggable;
+    bool clicked;
 
 private:
 	unsigned long currentFrame;
     bool bRegisteredForMouseEvents;
+    bool bRegisteredForKeyEvents;
 }; 

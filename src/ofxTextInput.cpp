@@ -17,7 +17,7 @@ ofxTextInput::~ofxTextInput(){
     value.removeListener(this,&ofxTextInput::valueChanged);
     ofRemoveListener(ofEvents().keyPressed, this, &ofxTextInput::keyPressed);
     unregisterMouseEvents();
-    ofUnregisterKeyEvents(this, OF_EVENT_ORDER_BEFORE_APP);
+    unregisterKeyEvents();
 }
 
 ofxTextInput* ofxTextInput::setup(ofParameter<string> _value, float width, float height) {
@@ -27,12 +27,12 @@ ofxTextInput* ofxTextInput::setup(ofParameter<string> _value, float width, float
     b.height = height;
     cursorPosition = text.length();
     lastTimeCursorMoved = ofGetElapsedTimef();
-    clicked = false;
     
     generateDraw();
     registerMouseEvents();
-    ofRegisterKeyEvents(this, OF_EVENT_ORDER_BEFORE_APP);
+    registerKeyEvents();
     value.addListener(this,&ofxTextInput::valueChanged);
+    
     return this;
 }
 
@@ -121,13 +121,11 @@ bool ofxTextInput::mousePressed(ofMouseEventArgs & args){
     if (b.inside(ofPoint(args.x,args.y))){
         bGuiActive = true;
         clicked    = true;
-        setBorderColor(ofColor(255,0,127));
         lastTimeCursorMoved = ofGetElapsedTimef();
         return true;
     } else {
         bGuiActive = false;
         clicked    = false;
-        setBorderColor(borderColor);
         return false;
     }
 }

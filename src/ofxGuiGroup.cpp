@@ -201,6 +201,11 @@ bool ofxGuiGroup::mousePressed(ofMouseEventArgs & args){
 			if(collection[i]->mousePressed(a)) return true;
 		}
 	}
+    else {
+        for(int i = 0; i < (int)collection.size(); i++){
+            collection[i]->setClicked(false);
+        }
+    }
 	return false;
 }
 
@@ -418,3 +423,11 @@ void ofxGuiGroup::setPosition(ofPoint p){
 void ofxGuiGroup::setPosition(float x, float y){
 	setPosition(ofVec2f(x,y));
 }
+
+void ofxGuiGroup::setClicked(bool click_) {
+    
+    for(int i = 0; i < (int)collection.size(); i++){
+        collection[i]->setClicked(false);
+    }
+    clicked = click_;
+};
