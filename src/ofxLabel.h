@@ -18,8 +18,8 @@ public:
     virtual bool mouseDragged(ofMouseEventArgs & args){return false;}
     virtual bool mouseReleased(ofMouseEventArgs & args){return false;}
     
-    virtual void keyPressed(ofKeyEventArgs &args){return false;}
-    virtual void keyReleased(ofKeyEventArgs &args){return false;}
+    virtual bool keyPressed(ofKeyEventArgs &args){return false;}
+    virtual bool keyReleased(ofKeyEventArgs &args){return false;}
 
 	virtual void saveTo(ofBaseSerializer& serializer){};
 	virtual void loadFrom(ofBaseSerializer& serializer){};

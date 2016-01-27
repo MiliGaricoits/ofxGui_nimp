@@ -74,8 +74,9 @@ public:
 	virtual bool mouseDragged(ofMouseEventArgs & args) = 0;
 	virtual bool mouseReleased(ofMouseEventArgs & args) = 0;
     
-    virtual void keyPressed(ofKeyEventArgs &args) = 0;
-    virtual void keyReleased(ofKeyEventArgs &args) = 0;
+    virtual bool keyPressed(ofKeyEventArgs & args) = 0;
+    virtual bool keyReleased(ofKeyEventArgs & args) = 0;
+    
 protected:
 	virtual void render()=0;
 	bool isGuiDrawing();

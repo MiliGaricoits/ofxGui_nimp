@@ -235,6 +235,16 @@ bool ofxGuiGroup::mouseReleased(ofMouseEventArgs & args){
 	}
 }
 
+bool ofxGuiGroup::keyPressed(ofKeyEventArgs & args){
+    if( bGuiActive ){
+        ofKeyEventArgs a = args;
+        for(int i = 0; i < (int)collection.size(); i++){
+            collection[i]->keyPressed(a);
+        }
+    }
+    return false;
+}
+
 void ofxGuiGroup::generateDraw(){
 	border.clear();
 	border.setFillColor(ofColor(thisBorderColor,180));

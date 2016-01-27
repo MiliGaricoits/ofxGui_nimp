@@ -40,8 +40,8 @@ public:
 	virtual bool mouseDragged(ofMouseEventArgs & args);
 	virtual bool mouseReleased(ofMouseEventArgs & args);
 	
-    virtual void keyPressed(ofKeyEventArgs &args){return false;}
-    virtual void keyReleased(ofKeyEventArgs &args){return false;}
+    virtual bool keyPressed(ofKeyEventArgs &args);
+    virtual bool keyReleased(ofKeyEventArgs &args) { return false; };
     
 	vector<string> getControlNames();
 	int getNumControls();

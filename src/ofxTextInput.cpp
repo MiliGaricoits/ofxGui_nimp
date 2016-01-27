@@ -140,7 +140,7 @@ bool ofxTextInput::mouseReleased(ofMouseEventArgs & args){
     }
 }
 
-void ofxTextInput::keyPressed(ofKeyEventArgs &args) {
+bool ofxTextInput::keyPressed(ofKeyEventArgs &args) {
     
     if(clicked)
     {
@@ -232,7 +232,9 @@ void ofxTextInput::keyPressed(ofKeyEventArgs &args) {
         }
         
         value.set(text);
+        return true;
     }
+    return false;
 }
 
 bool ofxTextInput::setValue(float mx, float my, string s){

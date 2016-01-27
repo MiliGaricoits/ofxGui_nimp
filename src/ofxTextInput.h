@@ -25,8 +25,8 @@ public:
     virtual bool mouseDragged(ofMouseEventArgs & args);
     virtual bool mousePressed(ofMouseEventArgs & args);
     virtual bool mouseReleased(ofMouseEventArgs & args);
-    void keyPressed(ofKeyEventArgs &args);
-    void keyReleased(ofKeyEventArgs &args){};
+    bool keyPressed(ofKeyEventArgs &args);
+    bool keyReleased(ofKeyEventArgs &args){return false;};
     
     template<class ListenerClass, typename ListenerMethod>
     void addListener(ListenerClass * listener, ListenerMethod method){
