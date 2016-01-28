@@ -45,12 +45,14 @@ public:
 	void setBorderColor(const ofColor & color);
 	void setTextColor(const ofColor & color);
 	void setFillColor(const ofColor & color);
+    void setClickedColor(const ofColor & color);
 
 	static void setDefaultHeaderBackgroundColor(const ofColor & color);
 	static void setDefaultBackgroundColor(const ofColor & color);
 	static void setDefaultBorderColor(const ofColor & color);
 	static void setDefaultTextColor(const ofColor & color);
 	static void setDefaultFillColor(const ofColor & color);
+    static void setDefaultClickedColor(const ofColor & color);
 
 	static void setDefaultTextPadding(int padding);
 	static void setDefaultWidth(int width);
@@ -97,12 +99,14 @@ protected:
 	static ofColor borderColor;
 	static ofColor textColor;
 	static ofColor fillColor;
+    static ofColor clickedColor;
 
 	ofColor thisHeaderBackgroundColor;
 	ofColor thisBackgroundColor;
 	ofColor thisBorderColor;
 	ofColor thisTextColor;
 	ofColor thisFillColor;
+    ofColor thisClickedColor;
 
 	static int textPadding;
 	static int defaultWidth;
@@ -116,6 +120,7 @@ protected:
     //custom
     bool draggable;
     bool clicked;
+    ofPath border;
 
 private:
 	unsigned long currentFrame;

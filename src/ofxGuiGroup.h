@@ -83,7 +83,7 @@ protected:
 	bool bGuiActive;
 
 	ofxGuiGroup * parent;
-	ofPath border, headerBg;
+	ofPath headerBg;
 	ofVboMesh textMesh;
 };
 

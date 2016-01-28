@@ -32,6 +32,10 @@ void ofxGuiSetFillColor(const ofColor & color){
     ofxBaseGui::setDefaultFillColor(color);
 }
 
+void ofxGuiSetClickedColor(const ofColor & color){
+    ofxBaseGui::setDefaultClickedColor(color);
+}
+
 void ofxGuiSetTextPadding(int padding){
     ofxBaseGui::setDefaultTextPadding(padding);
 }
@@ -50,7 +54,8 @@ ofxBaseGui::headerBackgroundColor(64),
 ofxBaseGui::backgroundColor(0),
 ofxBaseGui::borderColor(120,100),
 ofxBaseGui::textColor(255),
-ofxBaseGui::fillColor(128);
+ofxBaseGui::fillColor(128),
+ofxBaseGui::clickedColor(176,217,24);
 
 int ofxBaseGui::textPadding = 4;
 int ofxBaseGui::defaultWidth = 200;
@@ -69,6 +74,7 @@ ofxBaseGui::ofxBaseGui(){
     thisBorderColor=borderColor;
     thisTextColor=textColor;
     thisFillColor=fillColor;
+    thisClickedColor=clickedColor;
     
     bRegisteredForMouseEvents = false;
     bRegisteredForKeyEvents = false;
@@ -298,6 +304,11 @@ void ofxBaseGui::setFillColor(const ofColor & color){
     thisFillColor = color;
 }
 
+void ofxBaseGui::setClickedColor(const ofColor & color){
+    generateDraw();
+    thisClickedColor = color;
+}
+
 void ofxBaseGui::setDefaultHeaderBackgroundColor(const ofColor & color){
     headerBackgroundColor = color;
 }
@@ -316,6 +327,10 @@ void ofxBaseGui::setDefaultTextColor(const ofColor & color){
 
 void ofxBaseGui::setDefaultFillColor(const ofColor & color){
     fillColor = color;
+}
+
+void ofxBaseGui::setDefaultClickedColor(const ofColor & color){
+    clickedColor = color;
 }
 
 void ofxBaseGui::setDefaultTextPadding(int padding){

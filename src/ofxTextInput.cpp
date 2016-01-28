@@ -54,9 +54,21 @@ void ofxTextInput::generateDraw(){
     }
     
     textMesh = getTextMesh(name + text, b.x + textPadding, b.y + b.height / 2 + 4);
+    
+    if (clicked) {
+        border.clear();
+        border.setFillColor(ofColor(thisClickedColor, 255));
+        border.setFilled(true);
+        border.rectangle(b.x -1, b.y -1, b.width +2, b.height +2);
+    }
 }
 
 void ofxTextInput::render() {
+    
+    if (clicked) {
+        border.draw();
+    }
+    
     ofColor c = ofGetStyle().color;
     
     bg.draw();
@@ -74,7 +86,7 @@ void ofxTextInput::render() {
     if (clicked) {
         ofPushStyle();
         float timeFrac = 0.5 * ofClamp(cos(6.0f * (ofGetElapsedTimef()-lastTimeCursorMoved))*4, -1, 1) + 0.5;
-        ofColor col = thisBorderColor;
+        ofColor col = ofColor(textColor, 200);
         ofSetColor(col.r * timeFrac, col.g * timeFrac, col.b * timeFrac);
         
         ofLine(b.x + PADDING + cursorPosition*8, b.y,

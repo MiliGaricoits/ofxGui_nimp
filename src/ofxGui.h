@@ -16,6 +16,7 @@ void ofxGuiSetBackgroundColor(const ofColor & color);
 void ofxGuiSetBorderColor(const ofColor & color);
 void ofxGuiSetTextColor(const ofColor & color);
 void ofxGuiSetFillColor(const ofColor & color);
+void ofxGuiSetClickedColor(const ofColor & color);
 
 void ofxGuiSetTextPadding(int padding);
 void ofxGuiSetDefaultWidth(int width);
