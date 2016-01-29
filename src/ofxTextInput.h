@@ -55,11 +55,13 @@ protected:
     
     ofParameter<string> value;
     string text;
+    string displayText;
     ofPath bg;
     ofVboMesh textMesh;
     bool bGuiActive;
     float lastTimeCursorMoved;
     unsigned int cursorPosition;
+    unsigned int cursorPositionDisplay;
     unsigned int firstVisibleCharacterIndex;
 };
 

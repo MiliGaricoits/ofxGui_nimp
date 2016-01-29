@@ -74,8 +74,10 @@ bool ofxSlider<Type>::mousePressed(ofMouseEventArgs & args){
 		value.disableEvents();
 	}
 	if(setValue(args.x, args.y, true)){
+        clicked = true;
 		return true;
 	}else{
+        clicked = false;
 		return false;
 	}
 }
@@ -130,6 +132,13 @@ void ofxSlider<Type>::generateDraw(){
 	bar.rectangle(b.x+1, b.y+1, valAsPct, b.height-2);
 
 	generateText();
+    
+    if (clicked) {
+        border.clear();
+        border.setFillColor(ofColor(thisClickedColor, 255));
+        border.setFilled(true);
+        border.rectangle(b.x -1, b.y -1, b.width +2, b.height +2);
+    }
 }
 
 
@@ -149,6 +158,11 @@ void ofxSlider<unsigned char>::generateText(){
 
 template<typename Type>
 void ofxSlider<Type>::render(){
+    
+    if (clicked) {
+        border.draw();
+    }
+    
 	ofColor c = ofGetStyle().color;
 
 	bg.draw();

@@ -42,8 +42,10 @@ bool ofxToggle::mouseMoved(ofMouseEventArgs & args){
 
 bool ofxToggle::mousePressed(ofMouseEventArgs & args){
 	if(setValue(args.x, args.y, true)){
+        clicked = true;
 		return true;
 	}else{
+        clicked = false;
 		return false;
 	}
 }
@@ -92,9 +94,21 @@ void ofxToggle::generateDraw(){
 	cross.lineTo(b.getPosition()+checkboxRect.getBottomLeft());
 
 	textMesh = getTextMesh(getName(), b.x+textPadding + checkboxRect.width, b.y+b.height / 2 + 4);
+    
+    if (clicked) {
+        border.clear();
+        border.setFillColor(ofColor(thisClickedColor, 255));
+        border.setFilled(true);
+        border.rectangle(b.x -1, b.y -1, b.width +2, b.height +2);
+    }
 }
 
 void ofxToggle::render(){
+    
+    if (clicked) {
+        border.draw();
+    }
+    
 	bg.draw();
 	fg.draw();
 

@@ -23,9 +23,11 @@ ofxTextInput::~ofxTextInput(){
 ofxTextInput* ofxTextInput::setup(ofParameter<string> _value, float width, float height) {
     value.makeReferenceTo(_value);
     text = _value;
+    displayText = _value;
     b.width  = width;
     b.height = height;
     cursorPosition = text.length();
+    cursorPositionDisplay = cursorPosition;
     lastTimeCursorMoved = ofGetElapsedTimef();
     
     generateDraw();
@@ -53,7 +55,11 @@ void ofxTextInput::generateDraw(){
         name = getName() + ": ";
     }
     
-    textMesh = getTextMesh(name + text, b.x + textPadding, b.y + b.height / 2 + 4);
+    if (text.length() > 24) {
+        displayText = text.substr(cursorPosition-24, cursorPosition);
+        cursorPositionDisplay = 24;
+    }
+    textMesh = getTextMesh(displayText, b.x + textPadding, b.y + b.height / 2 + 4);
     
     if (clicked) {
         border.clear();
@@ -89,8 +95,8 @@ void ofxTextInput::render() {
         ofColor col = ofColor(textColor, 200);
         ofSetColor(col.r * timeFrac, col.g * timeFrac, col.b * timeFrac);
         
-        ofLine(b.x + PADDING + cursorPosition*8, b.y,
-               b.x + PADDING + cursorPosition*8, b.y + b.height);
+        ofLine(b.x + PADDING + cursorPositionDisplay*8, b.y,
+               b.x + PADDING + cursorPositionDisplay*8, b.y + b.height);
         ofPopStyle();
     }
     
@@ -244,6 +250,8 @@ bool ofxTextInput::keyPressed(ofKeyEventArgs &args) {
         }
         
         value.set(text);
+        displayText = text;
+        cursorPositionDisplay = cursorPosition;
         return true;
     }
     return false;
