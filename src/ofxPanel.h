@@ -14,6 +14,7 @@ public:
 	ofxPanel * setup(const ofParameterGroup & parameters, string filename="settings.xml", float x = 10, float y = 10);
 
 	bool mouseReleased(ofMouseEventArgs & args);
+    void setMidiLearnActive(bool active_);
 
 	ofEvent<void> loadPressedE;
 	ofEvent<void> savePressedE;

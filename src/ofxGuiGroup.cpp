@@ -82,6 +82,7 @@ ofxGuiGroup * ofxGuiGroup::setup(const ofParameterGroup & _parameters, string _f
 
 	parameters = _parameters;
     registerMouseEvents();
+    registerKeyEvents();
 
 	generateDraw();
     
@@ -98,6 +99,7 @@ void ofxGuiGroup::add(ofxBaseGui * element){
 	//if(b.width<element->getWidth()) b.width = element->getWidth();
     
     element->unregisterMouseEvents();
+    element->unregisterKeyEvents();
     
 	ofxGuiGroup * subgroup = dynamic_cast<ofxGuiGroup*>(element);
 	if(subgroup!=NULL){
@@ -197,10 +199,16 @@ bool ofxGuiGroup::mousePressed(ofMouseEventArgs & args){
 	}
 	if( bGuiActive ){
 		ofMouseEventArgs a = args;
+        bool result = false;
 		for(int i = 0; i < (int)collection.size(); i++){
-			if(collection[i]->mousePressed(a)) return true;
+			if(collection[i]->mousePressed(a))
+                result = true;
 		}
+        return result;
 	}
+    else if (commandPressed || midiLearnActive) {
+        return false;
+    }
     else {
         for(int i = 0; i < (int)collection.size(); i++){
             collection[i]->setClicked(false);
@@ -224,11 +232,15 @@ bool ofxGuiGroup::mouseDragged(ofMouseEventArgs & args){
 
 bool ofxGuiGroup::mouseReleased(ofMouseEventArgs & args){
 	bGuiActive = false;
+    bool result = false;
 	for(int k = 0; k < (int)collection.size(); k++){
 		ofMouseEventArgs a = args;
-		if(collection[k]->mouseReleased(a)) return true;
+		if(collection[k]->mouseReleased(a)) result = true;
 	}
-	if(isGuiDrawing() && b.inside(ofPoint(args.x,args.y))){
+    if (result) {
+        return true;
+    }
+	else if(isGuiDrawing() && b.inside(ofPoint(args.x,args.y))){
 		return true;
 	}else{
 		return false;
@@ -236,11 +248,22 @@ bool ofxGuiGroup::mouseReleased(ofMouseEventArgs & args){
 }
 
 bool ofxGuiGroup::keyPressed(ofKeyEventArgs & args){
-    if( bGuiActive ){
-        ofKeyEventArgs a = args;
-        for(int i = 0; i < (int)collection.size(); i++){
-            collection[i]->keyPressed(a);
-        }
+    commandPressed = (OF_KEY_LEFT_COMMAND || args.key == OF_KEY_RIGHT_COMMAND);
+    
+    ofKeyEventArgs a = args;
+    bool result      = false;
+    for(int i = 0; i < (int)collection.size(); i++){
+        if (collection[i]->keyPressed(a))
+        result = true;
+    }
+    return result;
+}
+
+bool ofxGuiGroup::keyReleased(ofKeyEventArgs & args){
+    commandPressed = false;
+    ofKeyEventArgs a = args;
+    for(int i = 0; i < (int)collection.size(); i++){
+        collection[i]->keyReleased(a);
     }
     return false;
 }
@@ -441,3 +464,11 @@ void ofxGuiGroup::setClicked(bool click_) {
     }
     clicked = click_;
 };
+
+void ofxGuiGroup::setMidiLearnActive(bool active_) {
+    
+    for(int i = 0; i < (int)collection.size(); i++){
+        collection[i]->setMidiLearnActive(active_);
+    }
+    midiLearnActive = active_;
+}

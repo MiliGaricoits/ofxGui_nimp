@@ -159,3 +159,11 @@ bool ofxPanel::setValue(float mx, float my, bool bCheck){
     }
     return false;
 }
+
+void ofxPanel::setMidiLearnActive(bool active_) {
+    
+    for(int i = 0; i < (int)collection.size(); i++){
+        collection[i]->setMidiLearnActive(active_);
+    }
+    midiLearnActive = active_;
+}

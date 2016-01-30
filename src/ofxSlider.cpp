@@ -29,6 +29,7 @@ ofxSlider<Type>* ofxSlider<Type>::setup(ofParameter<Type> _val, float width, flo
 
 	value.addListener(this,&ofxSlider::valueChanged);
 	registerMouseEvents();
+    registerKeyEvents();
 	generateDraw();
 	return this;
 }
@@ -73,13 +74,23 @@ bool ofxSlider<Type>::mousePressed(ofMouseEventArgs & args){
 	if(bUpdateOnReleaseOnly){
 		value.disableEvents();
 	}
-	if(setValue(args.x, args.y, true)){
-        clicked = true;
-		return true;
-	}else{
+    if (!midiLearnActive) {
+        if(setValue(args.x, args.y, true)){
+            clicked = !clicked;
+            return true;
+        }
+    }
+    else if(b.inside(ofPoint(args.x,args.y))) {
+        clicked = !clicked;
+        return true;
+    }
+    else if (midiLearnActive && commandPressed && clicked) {
+        return true;
+    }
+    else {
         clicked = false;
-		return false;
-	}
+        return false;
+    }
 }
 
 template<typename Type>
@@ -104,6 +115,18 @@ bool ofxSlider<Type>::mouseReleased(ofMouseEventArgs & args){
 	}else{
 		return false;
 	}
+}
+
+template<typename Type>
+bool ofxSlider<Type>::keyPressed(ofKeyEventArgs &args) {
+    commandPressed = (args.key == OF_KEY_LEFT_COMMAND || args.key == OF_KEY_RIGHT_COMMAND);
+    return false;
+}
+
+template<typename Type>
+bool ofxSlider<Type>::keyReleased(ofKeyEventArgs &args) {
+    commandPressed = false;
+    return false;
 }
 
 template<typename Type>
@@ -133,7 +156,7 @@ void ofxSlider<Type>::generateDraw(){
 
 	generateText();
     
-    if (clicked) {
+    if (clicked && midiLearnActive) {
         border.clear();
         border.setFillColor(ofColor(thisClickedColor, 255));
         border.setFilled(true);

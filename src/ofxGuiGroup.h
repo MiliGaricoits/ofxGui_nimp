@@ -41,7 +41,7 @@ public:
 	virtual bool mouseReleased(ofMouseEventArgs & args);
 	
     virtual bool keyPressed(ofKeyEventArgs &args);
-    virtual bool keyReleased(ofKeyEventArgs &args) { return false; };
+    virtual bool keyReleased(ofKeyEventArgs &args);
     
 	vector<string> getControlNames();
 	int getNumControls();
@@ -62,6 +62,8 @@ public:
     
     //custom
     void setClicked(bool click_);
+    virtual void setMidiLearnActive(bool active_);
+    
 protected:
 	virtual void render();
     virtual bool setValue(float mx, float my, bool bCheck);

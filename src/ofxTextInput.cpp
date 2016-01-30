@@ -136,9 +136,9 @@ bool ofxTextInput::mousePressed(ofMouseEventArgs & args){
         bGuiActive = false;
         return false;
     }
-    if (b.inside(ofPoint(args.x,args.y))){
+    if (b.inside(ofPoint(args.x,args.y)) && !midiLearnActive){
         bGuiActive = true;
-        clicked    = true;
+        clicked    = !clicked;
         lastTimeCursorMoved = ofGetElapsedTimef();
         return true;
     } else {
@@ -160,7 +160,7 @@ bool ofxTextInput::mouseReleased(ofMouseEventArgs & args){
 
 bool ofxTextInput::keyPressed(ofKeyEventArgs &args) {
     
-    if(clicked)
+    if(clicked && !midiLearnActive)
     {
         lastTimeCursorMoved = ofGetElapsedTimef();
         switch (args.key)

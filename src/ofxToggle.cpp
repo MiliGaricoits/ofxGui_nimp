@@ -20,6 +20,7 @@ ofxToggle * ofxToggle::setup(ofParameter<bool> _bVal, float width, float height)
 
 	value.addListener(this,&ofxToggle::valueChanged);
 	registerMouseEvents();
+    registerKeyEvents();
 	generateDraw();
 
 	return this;
@@ -41,13 +42,24 @@ bool ofxToggle::mouseMoved(ofMouseEventArgs & args){
 }
 
 bool ofxToggle::mousePressed(ofMouseEventArgs & args){
-	if(setValue(args.x, args.y, true)){
-        clicked = true;
-		return true;
-	}else{
+    
+    if (!midiLearnActive) {
+        if(setValue(args.x, args.y, true)){
+            clicked = !clicked;
+            return true;
+        }
+    }
+    else if(b.inside(ofPoint(args.x,args.y))) {
+        clicked = !clicked;
+        return true;
+    }
+    else if (midiLearnActive && commandPressed && clicked) {
+        return true;
+    }
+    else {
         clicked = false;
-		return false;
-	}
+        return false;
+    }
 }
 
 bool ofxToggle::mouseDragged(ofMouseEventArgs & args){
@@ -66,6 +78,16 @@ bool ofxToggle::mouseReleased(ofMouseEventArgs & args){
 	}else{
 		return false;
 	}
+}
+
+bool ofxToggle::keyPressed(ofKeyEventArgs &args) {
+    commandPressed = (args.key == OF_KEY_LEFT_COMMAND || args.key == OF_KEY_RIGHT_COMMAND);
+    return false;
+}
+
+bool ofxToggle::keyReleased(ofKeyEventArgs &args) {
+    commandPressed = false;
+    return false;
 }
 
 void ofxToggle::generateDraw(){
@@ -95,7 +117,7 @@ void ofxToggle::generateDraw(){
 
 	textMesh = getTextMesh(getName(), b.x+textPadding + checkboxRect.width, b.y+b.height / 2 + 4);
     
-    if (clicked) {
+    if (clicked && midiLearnActive) {
         border.clear();
         border.setFillColor(ofColor(thisClickedColor, 255));
         border.setFilled(true);

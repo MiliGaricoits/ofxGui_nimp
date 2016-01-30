@@ -77,16 +77,19 @@ ofxBaseGui::ofxBaseGui(){
     thisClickedColor=clickedColor;
     
     bRegisteredForMouseEvents = false;
-    bRegisteredForKeyEvents = false;
+    bRegisteredForKeyEvents   = false;
     
     /*if(!fontLoaded){
      loadFont(OF_TTF_MONO,10,true,true);
      useTTF=false;
      }*/
     
-    //draggable gui
-    draggable = true;
-    clicked = false;
+    // custom variables
+    //
+    draggable       = true;
+    clicked         = false;
+    midiLearnActive = false;
+    commandPressed  = false;
 }
 
 void ofxBaseGui::loadFont(string filename, int fontsize, bool _bAntiAliased, bool _bFullCharacterSet, int dpi){

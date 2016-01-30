@@ -65,6 +65,7 @@ public:
     //custom
     void setDraggable(bool drag_) { draggable = drag_; };
     virtual void setClicked(bool click_) { clicked = click_; };
+    virtual void setMidiLearnActive(bool active_) { midiLearnActive = active_; };
 
     void registerMouseEvents();
     void registerKeyEvents();
@@ -120,6 +121,8 @@ protected:
     //custom
     bool draggable;
     bool clicked;
+    bool midiLearnActive;
+    bool commandPressed;
     ofPath border;
 
 private:
