@@ -18,6 +18,10 @@ public:
 
 	ofEvent<void> loadPressedE;
 	ofEvent<void> savePressedE;
+    
+    //custom
+    vector<string> getAttributesForMidiLearn();
+    
 protected:
 	void render();
 	bool setValue(float mx, float my, bool bCheck);

@@ -472,3 +472,20 @@ void ofxGuiGroup::setMidiLearnActive(bool active_) {
     }
     midiLearnActive = active_;
 }
+
+vector <string> ofxGuiGroup::getAttributesForMidiLearn() {
+    
+    vector <string> result;
+    
+    if ((int)collection.size() > 0) {
+        for(int i = 0; i < (int)collection.size(); i++){
+            if (collection[i]->isClicked()) {
+                result.push_back(collection[i]->getName());
+            }
+        }
+    }
+    else if (clicked) {
+        result.push_back(getName());
+    }
+    return result;
+}

@@ -63,6 +63,7 @@ public:
     //custom
     void setClicked(bool click_);
     virtual void setMidiLearnActive(bool active_);
+    virtual vector <string> getAttributesForMidiLearn();
     
 protected:
 	virtual void render();

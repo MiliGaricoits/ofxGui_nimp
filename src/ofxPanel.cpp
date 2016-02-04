@@ -164,6 +164,23 @@ void ofxPanel::setMidiLearnActive(bool active_) {
     
     for(int i = 0; i < (int)collection.size(); i++){
         collection[i]->setMidiLearnActive(active_);
+        
+        if (!active_){
+            collection[i]->setClicked(false);
+        }
     }
     midiLearnActive = active_;
+}
+
+vector<string> ofxPanel::getAttributesForMidiLearn() {
+    
+    vector<string> result, partialResult;
+    for(int i = 0; i < (int)collection.size(); i++){
+        partialResult = collection[i]->getAttributesForMidiLearn();
+        if (partialResult.size() > 0) {
+            result.insert(result.end(), partialResult.begin(), partialResult.end());
+        }
+    }
+    partialResult.clear();
+    return result;
 }

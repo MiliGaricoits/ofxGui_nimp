@@ -393,3 +393,12 @@ void ofxBaseGui::loadStencilFromHex(ofImage& img, unsigned char* data) {
     }
     img.update();
 }
+
+vector<string> ofxBaseGui::getAttributesForMidiLearn() {
+    
+    vector <string> result;
+    if (clicked) {
+        result.push_back(getName());
+    }
+    return result;
+}

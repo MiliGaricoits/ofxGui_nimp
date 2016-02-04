@@ -65,7 +65,9 @@ public:
     //custom
     void setDraggable(bool drag_) { draggable = drag_; };
     virtual void setClicked(bool click_) { clicked = click_; };
+    virtual bool isClicked() { return clicked; };
     virtual void setMidiLearnActive(bool active_) { midiLearnActive = active_; };
+    virtual vector<string> getAttributesForMidiLearn();
 
     void registerMouseEvents();
     void registerKeyEvents();
