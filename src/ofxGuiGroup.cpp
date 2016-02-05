@@ -478,11 +478,14 @@ vector <string> ofxGuiGroup::getAttributesForMidiLearn() {
     vector <string> result;
     
     if ((int)collection.size() > 0) {
+        vector<string> partialResult;
         for(int i = 0; i < (int)collection.size(); i++){
-            if (collection[i]->isClicked()) {
-                result.push_back(collection[i]->getName());
+            partialResult = collection[i]->getAttributesForMidiLearn();
+            if (partialResult.size() > 0) {
+                result.insert(result.end(), partialResult.begin(), partialResult.end());
             }
         }
+        partialResult.clear();
     }
     else if (clicked) {
         result.push_back(getName());
