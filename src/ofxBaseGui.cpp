@@ -2,6 +2,7 @@
 #include "ofXml.h"
 #include "ofImage.h"
 #include "ofBitmapFont.h"
+#include "enumerations.h"
 
 
 void ofxGuiSetFont(const string & fontPath,int fontsize, bool _bAntiAliased=true, bool _bFullCharacterSet=false, int dpi=0){
@@ -114,7 +115,7 @@ void ofxBaseGui::registerMouseEvents(){
         return; // already registered.
     }
     bRegisteredForMouseEvents = true;
-    ofRegisterMouseEvents(this, OF_EVENT_ORDER_BEFORE_APP);
+    ofRegisterMouseEvents(this, AFTER_MENU_BAR_EVENT_PRIORITY);
 }
 
 void ofxBaseGui::registerKeyEvents(){
@@ -129,7 +130,7 @@ void ofxBaseGui::unregisterMouseEvents(){
     if(bRegisteredForMouseEvents == false) {
         return; // not registered.
     }
-    ofUnregisterMouseEvents(this, OF_EVENT_ORDER_BEFORE_APP);
+    ofUnregisterMouseEvents(this, AFTER_MENU_BAR_EVENT_PRIORITY);
     bRegisteredForMouseEvents = false;
 }
 
