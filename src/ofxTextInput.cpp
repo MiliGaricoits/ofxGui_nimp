@@ -71,7 +71,7 @@ void ofxTextInput::generateDraw(){
 
 void ofxTextInput::render() {
     
-    if (clicked) {
+    if (clicked && !midiLearnActive) {
         border.draw();
     }
     

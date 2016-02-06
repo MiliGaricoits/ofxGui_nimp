@@ -43,18 +43,17 @@ bool ofxToggle::mouseMoved(ofMouseEventArgs & args){
 
 bool ofxToggle::mousePressed(ofMouseEventArgs & args){
     
-    if (!midiLearnActive) {
+    if (!midiLearnActive) {                                     // if midi learn is inactive, do normal slider stuff
         if(setValue(args.x, args.y, true)){
-            clicked = !clicked;
             return true;
         }
     }
-    else if(b.inside(ofPoint(args.x,args.y))) {
+    else if(b.inside(ofPoint(args.x,args.y))) {                 // if midi learn is active and i'm pressing this toggle
         clicked = !clicked;
         return true;
     }
-    else if (midiLearnActive && commandPressed && clicked) {
-        return true;
+    else if (midiLearnActive && commandPressed && clicked) {    // if midi learn is active, i was clicked, and command is beign pressed
+        return true;                                            // i shouldn't change myself
     }
     else {
         clicked = false;
@@ -127,7 +126,7 @@ void ofxToggle::generateDraw(){
 
 void ofxToggle::render(){
     
-    if (clicked) {
+    if (clicked && midiLearnActive) {
         border.draw();
     }
     

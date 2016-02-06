@@ -74,18 +74,17 @@ bool ofxSlider<Type>::mousePressed(ofMouseEventArgs & args){
 	if(bUpdateOnReleaseOnly){
 		value.disableEvents();
 	}
-    if (!midiLearnActive) {
+    if (!midiLearnActive) {                                     // if midi learn is inactive, do normal slider stuff
         if(setValue(args.x, args.y, true)){
-            clicked = !clicked;
             return true;
         }
     }
-    else if(b.inside(ofPoint(args.x,args.y))) {
+    else if(b.inside(ofPoint(args.x,args.y))) {                 // if midi learn is active and i'm pressing this slider
         clicked = !clicked;
         return true;
     }
-    else if (midiLearnActive && commandPressed && clicked) {
-        return true;
+    else if (midiLearnActive && commandPressed && clicked) {    // if midi learn is active, i was clicked, and command is beign pressed
+        return true;                                            // i shouldn't change myself
     }
     else {
         clicked = false;
@@ -182,7 +181,7 @@ void ofxSlider<unsigned char>::generateText(){
 template<typename Type>
 void ofxSlider<Type>::render(){
     
-    if (clicked) {
+    if (clicked && midiLearnActive) {
         border.draw();
     }
     
