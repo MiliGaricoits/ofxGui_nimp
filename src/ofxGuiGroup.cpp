@@ -469,6 +469,9 @@ void ofxGuiGroup::setMidiLearnActive(bool active_) {
     
     for(int i = 0; i < (int)collection.size(); i++){
         collection[i]->setMidiLearnActive(active_);
+        if (!active_){
+            collection[i]->setClicked(false);
+        }
     }
     midiLearnActive = active_;
 }
