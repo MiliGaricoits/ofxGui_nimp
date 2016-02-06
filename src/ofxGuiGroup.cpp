@@ -176,6 +176,16 @@ void ofxGuiGroup::add(ofParameter<ofFloatColor> & parameter){
 	add(new ofxColorSlider_<float>(parameter,b.width));
 }
 
+void ofxGuiGroup::remove(string label) {
+    for(int i = 0; i < (int)collection.size(); i++){
+        if(collection[i]->getName() == label) {
+            collection[i]->unregisterKeyEvents();
+            collection[i]->unregisterMouseEvents();
+            collection.erase(collection.begin() + i);
+        }
+    }
+}
+
 void ofxGuiGroup::clear(){
 	collection.clear();
 	b.height = header + spacing + spacingNextElement ;
