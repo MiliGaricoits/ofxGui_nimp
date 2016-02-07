@@ -108,6 +108,7 @@ void ofxBaseGui::setUseTTF(bool bUseTTF){
 
 ofxBaseGui::~ofxBaseGui(){
     unregisterMouseEvents();
+    unregisterKeyEvents();
 }
 
 void ofxBaseGui::registerMouseEvents(){
