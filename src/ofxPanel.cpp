@@ -169,7 +169,21 @@ void ofxPanel::setMidiLearnActive(bool active_) {
             collection[i]->setClicked(false);
         }
     }
-    midiLearnActive = active_;
+    midiLearnActive   = active_;
+    editAudioInActive = false;
+}
+
+void ofxPanel::setEditAudioInActive(bool active_) {
+    
+    for(int i = 0; i < (int)collection.size(); i++){
+        collection[i]->setEditAudioInActive(active_);
+        
+        if (!active_){
+            collection[i]->setClicked(false);
+        }
+    }
+    editAudioInActive = active_;
+    midiLearnActive   = false;
 }
 
 vector<string> ofxPanel::getAttributesForMidiLearn() {
@@ -177,6 +191,19 @@ vector<string> ofxPanel::getAttributesForMidiLearn() {
     vector<string> result, partialResult;
     for(int i = 0; i < (int)collection.size(); i++){
         partialResult = collection[i]->getAttributesForMidiLearn();
+        if (partialResult.size() > 0) {
+            result.insert(result.end(), partialResult.begin(), partialResult.end());
+        }
+    }
+    partialResult.clear();
+    return result;
+}
+
+vector<string> ofxPanel::getAttributesForAudioIn() {
+    
+    vector<string> result, partialResult;
+    for(int i = 0; i < (int)collection.size(); i++){
+        partialResult = collection[i]->getAttributesForAudioIn();
         if (partialResult.size() > 0) {
             result.insert(result.end(), partialResult.begin(), partialResult.end());
         }

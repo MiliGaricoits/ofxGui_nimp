@@ -66,8 +66,10 @@ public:
     void setDraggable(bool drag_) { draggable = drag_; };
     virtual void setClicked(bool click_) { clicked = click_; };
     virtual bool isClicked() { return clicked; };
-    virtual void setMidiLearnActive(bool active_) { midiLearnActive = active_; };
+    virtual void setMidiLearnActive(bool active_) { midiLearnActive = active_; editAudioInActive = false; };
     virtual vector<string> getAttributesForMidiLearn();
+    virtual void setEditAudioInActive(bool active_) { editAudioInActive = active_; midiLearnActive = false; };
+    virtual vector<string> getAttributesForAudioIn();
 
     void registerMouseEvents();
     void registerKeyEvents();
@@ -103,6 +105,8 @@ protected:
 	static ofColor textColor;
 	static ofColor fillColor;
     static ofColor clickedColor;
+    static ofColor midiLearnColor;
+    static ofColor audioInColor;
 
 	ofColor thisHeaderBackgroundColor;
 	ofColor thisBackgroundColor;
@@ -110,6 +114,8 @@ protected:
 	ofColor thisTextColor;
 	ofColor thisFillColor;
     ofColor thisClickedColor;
+    ofColor thisMidiLearnColor;
+    ofColor thisAudioInColor;
 
 	static int textPadding;
 	static int defaultWidth;
@@ -126,6 +132,7 @@ protected:
     bool midiLearnActive;
     bool commandPressed;
     ofPath border;
+    bool editAudioInActive;
 
 private:
 	unsigned long currentFrame;

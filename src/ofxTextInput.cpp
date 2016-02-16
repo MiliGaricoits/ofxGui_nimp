@@ -71,7 +71,7 @@ void ofxTextInput::generateDraw(){
 
 void ofxTextInput::render() {
     
-    if (clicked && !midiLearnActive) {
+    if (clicked && !midiLearnActive && !editAudioInActive) {
         border.draw();
     }
     
@@ -136,7 +136,7 @@ bool ofxTextInput::mousePressed(ofMouseEventArgs & args){
         bGuiActive = false;
         return false;
     }
-    if (b.inside(ofPoint(args.x,args.y)) && !midiLearnActive){
+    if (b.inside(ofPoint(args.x,args.y)) && !midiLearnActive && !editAudioInActive){
         bGuiActive = true;
         clicked    = !clicked;
         lastTimeCursorMoved = ofGetElapsedTimef();
@@ -160,7 +160,7 @@ bool ofxTextInput::mouseReleased(ofMouseEventArgs & args){
 
 bool ofxTextInput::keyPressed(ofKeyEventArgs &args) {
     
-    if(clicked && !midiLearnActive)
+    if(clicked && !midiLearnActive && !editAudioInActive)
     {
         lastTimeCursorMoved = ofGetElapsedTimef();
         switch (args.key)

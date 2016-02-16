@@ -74,7 +74,7 @@ bool ofxSlider<Type>::mousePressed(ofMouseEventArgs & args){
 	if(bUpdateOnReleaseOnly){
 		value.disableEvents();
 	}
-    if (!midiLearnActive) {                                     // if midi learn is inactive, do normal slider stuff
+    if (!midiLearnActive && !editAudioInActive) {               // if midi learn is inactive, do normal slider stuff
         if(setValue(args.x, args.y, true)){
             return true;
         }
@@ -83,8 +83,9 @@ bool ofxSlider<Type>::mousePressed(ofMouseEventArgs & args){
         clicked = !clicked;
         return true;
     }
-    else if (midiLearnActive && commandPressed && clicked) {    // if midi learn is active, i was clicked, and command is beign pressed
-        return true;                                            // i shouldn't change myself
+    else if ((midiLearnActive || editAudioInActive)             // if midi learn is active, i was clicked, and command is beign pressed
+             && commandPressed && clicked) {                    // i shouldn't change myself
+        return true;
     }
     else {
         clicked = false;
@@ -155,9 +156,9 @@ void ofxSlider<Type>::generateDraw(){
 
 	generateText();
     
-    if (clicked && midiLearnActive) {
+    if (clicked && (midiLearnActive || editAudioInActive)) {
         border.clear();
-        border.setFillColor(ofColor(thisClickedColor, 255));
+        midiLearnActive ? border.setFillColor(ofColor(thisMidiLearnColor, 255)) : border.setFillColor(ofColor(thisAudioInColor, 255));
         border.setFilled(true);
         border.rectangle(b.x -1, b.y -1, b.width +2, b.height +2);
     }
@@ -181,7 +182,7 @@ void ofxSlider<unsigned char>::generateText(){
 template<typename Type>
 void ofxSlider<Type>::render(){
     
-    if (clicked && midiLearnActive) {
+    if (clicked && (midiLearnActive || editAudioInActive)) {
         border.draw();
     }
     

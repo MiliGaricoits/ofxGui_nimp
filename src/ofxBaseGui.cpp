@@ -56,7 +56,9 @@ ofxBaseGui::backgroundColor(0),
 ofxBaseGui::borderColor(120,100),
 ofxBaseGui::textColor(255),
 ofxBaseGui::fillColor(128),
-ofxBaseGui::clickedColor(176,217,24);
+ofxBaseGui::clickedColor(150,150,250),
+ofxBaseGui::midiLearnColor(176,217,24),
+ofxBaseGui::audioInColor(255,176,65);
 
 int ofxBaseGui::textPadding = 4;
 int ofxBaseGui::defaultWidth = 200;
@@ -76,6 +78,8 @@ ofxBaseGui::ofxBaseGui(){
     thisTextColor=textColor;
     thisFillColor=fillColor;
     thisClickedColor=clickedColor;
+    thisMidiLearnColor=midiLearnColor;
+    thisAudioInColor=audioInColor;
     
     bRegisteredForMouseEvents = false;
     bRegisteredForKeyEvents   = false;
@@ -87,10 +91,11 @@ ofxBaseGui::ofxBaseGui(){
     
     // custom variables
     //
-    draggable       = true;
-    clicked         = false;
-    midiLearnActive = false;
-    commandPressed  = false;
+    draggable         = true;
+    clicked           = false;
+    midiLearnActive   = false;
+    commandPressed    = false;
+    editAudioInActive = false;
 }
 
 void ofxBaseGui::loadFont(string filename, int fontsize, bool _bAntiAliased, bool _bFullCharacterSet, int dpi){
@@ -397,6 +402,15 @@ void ofxBaseGui::loadStencilFromHex(ofImage& img, unsigned char* data) {
 }
 
 vector<string> ofxBaseGui::getAttributesForMidiLearn() {
+    
+    vector <string> result;
+    if (clicked) {
+        result.push_back(getName());
+    }
+    return result;
+}
+
+vector<string> ofxBaseGui::getAttributesForAudioIn() {
     
     vector <string> result;
     if (clicked) {

@@ -15,12 +15,14 @@ public:
 
 	bool mouseReleased(ofMouseEventArgs & args);
     void setMidiLearnActive(bool active_);
+    void setEditAudioInActive(bool active_);
 
 	ofEvent<void> loadPressedE;
 	ofEvent<void> savePressedE;
     
     //custom
     vector<string> getAttributesForMidiLearn();
+    vector<string> getAttributesForAudioIn();
     
 protected:
 	void render();
