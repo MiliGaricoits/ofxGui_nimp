@@ -58,7 +58,8 @@ ofxBaseGui::textColor(255),
 ofxBaseGui::fillColor(128),
 ofxBaseGui::clickedColor(150,150,250),
 ofxBaseGui::midiLearnColor(176,217,24),
-ofxBaseGui::audioInColor(255,176,65);
+ofxBaseGui::leftAudioInColor(255,224,65),
+ofxBaseGui::rightAudioInColor(255,150,65);
 
 int ofxBaseGui::textPadding = 4;
 int ofxBaseGui::defaultWidth = 200;
@@ -79,7 +80,8 @@ ofxBaseGui::ofxBaseGui(){
     thisFillColor=fillColor;
     thisClickedColor=clickedColor;
     thisMidiLearnColor=midiLearnColor;
-    thisAudioInColor=audioInColor;
+    thisLeftAudioInColor=leftAudioInColor;
+    thisRightAudioInColor=rightAudioInColor;
     
     bRegisteredForMouseEvents = false;
     bRegisteredForKeyEvents   = false;
@@ -91,11 +93,14 @@ ofxBaseGui::ofxBaseGui(){
     
     // custom variables
     //
-    draggable         = true;
-    clicked           = false;
-    midiLearnActive   = false;
-    commandPressed    = false;
-    editAudioInActive = false;
+    draggable               = true;
+    clicked                 = false;
+    selectedForLeftAudio    = false;
+    selectedForRightAudio   = false;
+    midiLearnActive         = false;
+    editLeftAudioInActive   = false;
+    editRightAudioInActive  = false;
+    commandPressed          = false;
 }
 
 void ofxBaseGui::loadFont(string filename, int fontsize, bool _bAntiAliased, bool _bFullCharacterSet, int dpi){

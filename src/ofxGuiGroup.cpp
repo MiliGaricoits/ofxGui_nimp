@@ -216,7 +216,7 @@ bool ofxGuiGroup::mousePressed(ofMouseEventArgs & args){
 		}
         return result;
 	}
-    else if (commandPressed || midiLearnActive || editAudioInActive) {
+    else if (commandPressed || midiLearnActive || editLeftAudioInActive || editRightAudioInActive) {
         return false;
     }
     else {
@@ -483,20 +483,33 @@ void ofxGuiGroup::setMidiLearnActive(bool active_) {
             collection[i]->setClicked(false);
         }
     }
-    midiLearnActive   = active_;
-    editAudioInActive = false;
+    midiLearnActive        = active_;
+    editLeftAudioInActive  = false;
+    editRightAudioInActive = false;
 }
 
-void ofxGuiGroup::setEditAudioInActive(bool active_) {
+void ofxGuiGroup::setEditLeftAudioInActive(bool active_) {
     
     for(int i = 0; i < (int)collection.size(); i++){
-        collection[i]->setEditAudioInActive(active_);
+        collection[i]->setEditLeftAudioInActive(active_);
         if (!active_){
             collection[i]->setClicked(false);
         }
     }
-    editAudioInActive = active_;
-    midiLearnActive   = false;
+    editLeftAudioInActive = active_;
+    midiLearnActive       = false;
+}
+
+void ofxGuiGroup::setEditRightAudioInActive(bool active_) {
+    
+    for(int i = 0; i < (int)collection.size(); i++){
+        collection[i]->setEditRightAudioInActive(active_);
+        if (!active_){
+            collection[i]->setClicked(false);
+        }
+    }
+    editRightAudioInActive = active_;
+    midiLearnActive        = false;
 }
 
 vector <string> ofxGuiGroup::getAttributesForMidiLearn() {

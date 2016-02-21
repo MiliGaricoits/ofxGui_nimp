@@ -40,12 +40,8 @@ public:
 		value.removeListener(listener,method);
 	}
 
-
-
 	double operator=(Type v);
-	operator const Type & ();
-
-	
+    operator const Type & ();
 
 	ofAbstractParameter & getParameter();
 

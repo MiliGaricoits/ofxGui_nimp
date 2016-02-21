@@ -170,19 +170,33 @@ void ofxPanel::setMidiLearnActive(bool active_) {
         }
     }
     midiLearnActive   = active_;
-    editAudioInActive = false;
+    editRightAudioInActive = false;
+    editLeftAudioInActive = false;
 }
 
-void ofxPanel::setEditAudioInActive(bool active_) {
+void ofxPanel::setEditLeftAudioInActive(bool active_) {
     
     for(int i = 0; i < (int)collection.size(); i++){
-        collection[i]->setEditAudioInActive(active_);
+        collection[i]->setEditLeftAudioInActive(active_);
         
         if (!active_){
             collection[i]->setClicked(false);
         }
     }
-    editAudioInActive = active_;
+    editLeftAudioInActive = active_;
+    midiLearnActive   = false;
+}
+
+void ofxPanel::setEditRightAudioInActive(bool active_) {
+    
+    for(int i = 0; i < (int)collection.size(); i++){
+        collection[i]->setEditRightAudioInActive(active_);
+        
+        if (!active_){
+            collection[i]->setClicked(false);
+        }
+    }
+    editRightAudioInActive = active_;
     midiLearnActive   = false;
 }
 

@@ -43,18 +43,25 @@ bool ofxToggle::mouseMoved(ofMouseEventArgs & args){
 
 bool ofxToggle::mousePressed(ofMouseEventArgs & args){
     
-    if (value.getName() == "Edit FFT Inputs" ||    // if midi learn is inactive, do normal slider stuff
-        (!midiLearnActive && !editAudioInActive)) {
+    if (value.getName() == "Edit Left FFT Inputs" ||
+        value.getName() == "Edit Right FFT Inputs" ||                               // if midi learn is inactive, do normal slider stuff
+        (!midiLearnActive && !editLeftAudioInActive && !editRightAudioInActive)) {
         if(setValue(args.x, args.y, true)){
             return true;
         }
     }
-    else if(b.inside(ofPoint(args.x,args.y))) {                         // if midi learn is active and i'm pressing this toggle
+    else if(b.inside(ofPoint(args.x,args.y))) {                                     // if midi learn is active and i'm pressing this toggle
         clicked = !clicked;
+        if(editLeftAudioInActive) {
+            selectedForLeftAudio = !selectedForLeftAudio;
+        }
+        if(editRightAudioInActive) {
+            selectedForRightAudio = !selectedForRightAudio;
+        }
         return true;
     }
-    else if ((midiLearnActive || editAudioInActive)                     // if midi learn is active, i was clicked, and command is beign pressed
-             && commandPressed && clicked) {                            // i shouldn't change myself
+    else if ((midiLearnActive || editLeftAudioInActive || editRightAudioInActive)   // if midi learn is active, i was clicked, and command is beign pressed
+             && commandPressed && clicked) {                                        // i shouldn't change myself
         return true;
     }
     else {
@@ -99,7 +106,15 @@ void ofxToggle::generateDraw(){
 	fg.clear();
 	if(value){
 		fg.setFilled(true);
-		fg.setFillColor(thisFillColor);
+        if (editLeftAudioInActive && value.getName() == "Edit Left FFT Inputs") {
+            fg.setFillColor(thisLeftAudioInColor);
+        }
+        else if (editRightAudioInActive && value.getName() == "Edit Right FFT Inputs") {
+            fg.setFillColor(thisRightAudioInColor);
+        }
+        else {
+            fg.setFillColor(thisFillColor);
+        }
 	}else{
 		fg.setFilled(false);
 		fg.setStrokeWidth(1);
@@ -108,6 +123,13 @@ void ofxToggle::generateDraw(){
 	fg.rectangle(b.getPosition()+checkboxRect.getTopLeft(),checkboxRect.width,checkboxRect.height);
 
 	cross.clear();
+    if ((editLeftAudioInActive && value.getName() == "Edit Left FFT Inputs") ||
+        (editRightAudioInActive && value.getName() == "Edit Right FFT Inputs")) {
+        cross.setStrokeColor(ofColor(0));
+    }
+    else {
+        cross.setStrokeColor(thisTextColor);
+    }
 	cross.setStrokeColor(thisTextColor);
 	cross.setStrokeWidth(1);
 	cross.setFilled(false);
@@ -118,17 +140,29 @@ void ofxToggle::generateDraw(){
 
 	textMesh = getTextMesh(getName(), b.x+textPadding + checkboxRect.width, b.y+b.height / 2 + 4);
     
-    if (clicked && (midiLearnActive || editAudioInActive) && value.getName() != "Edit FFT Inputs") {
+    if (((clicked && midiLearnActive) || (selectedForRightAudio && editRightAudioInActive) || (selectedForLeftAudio && editLeftAudioInActive)) &&
+        (value.getName() != "Edit Left FFT Inputs" && value.getName() != "Edit Right FFT Inputs")) {
+        
         border.clear();
-        midiLearnActive ? border.setFillColor(ofColor(thisMidiLearnColor, 255)) : border.setFillColor(ofColor(thisAudioInColor, 255));
+        if (midiLearnActive){
+            border.setFillColor(ofColor(thisMidiLearnColor, 255));
+        }
+        else if (selectedForRightAudio && editRightAudioInActive) {
+            border.setFillColor(ofColor(thisRightAudioInColor, 255));
+        }
+        else if (selectedForLeftAudio && editLeftAudioInActive) {
+            border.setFillColor(ofColor(thisLeftAudioInColor, 255));
+        }
         border.setFilled(true);
         border.rectangle(b.x -1, b.y -1, b.width +2, b.height +2);
+        clicked = true;
     }
 }
 
 void ofxToggle::render(){
     
-    if (clicked && (midiLearnActive || editAudioInActive) && value.getName() != "Edit FFT Inputs") {
+    if (((clicked && midiLearnActive) || (selectedForRightAudio && editRightAudioInActive) || (selectedForLeftAudio && editLeftAudioInActive)) &&
+        (value.getName() != "Edit Right FFT Inputs") && (value.getName() != "Edit Left FFT Inputs")) {
         border.draw();
     }
     

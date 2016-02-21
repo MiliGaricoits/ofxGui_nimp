@@ -15,7 +15,8 @@ public:
 
 	bool mouseReleased(ofMouseEventArgs & args);
     void setMidiLearnActive(bool active_);
-    void setEditAudioInActive(bool active_);
+    void setEditLeftAudioInActive(bool active_);
+    void setEditRightAudioInActive(bool active_);
 
 	ofEvent<void> loadPressedE;
 	ofEvent<void> savePressedE;
