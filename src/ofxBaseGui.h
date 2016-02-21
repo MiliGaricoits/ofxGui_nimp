@@ -71,7 +71,7 @@ public:
     virtual void setEditLeftAudioInActive(bool active_) { editLeftAudioInActive = active_; midiLearnActive = false; };
     virtual void setEditRightAudioInActive(bool active_) { editRightAudioInActive = active_; midiLearnActive = false; };
     void setSelectedForLeftAudio(bool active_) { selectedForLeftAudio = active_; };
-    void setSelectedForRightAudio(bool active_) { selectedForLeftAudio = active_; };
+    void setSelectedForRightAudio(bool active_) { selectedForRightAudio = active_; };
     virtual vector<string> getAttributesForAudioIn();
 
     void registerMouseEvents();
