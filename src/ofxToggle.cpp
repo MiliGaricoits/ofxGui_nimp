@@ -130,7 +130,6 @@ void ofxToggle::generateDraw(){
     else {
         cross.setStrokeColor(thisTextColor);
     }
-	cross.setStrokeColor(thisTextColor);
 	cross.setStrokeWidth(1);
 	cross.setFilled(false);
 	cross.moveTo(b.getPosition()+checkboxRect.getTopLeft());
