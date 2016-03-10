@@ -65,10 +65,12 @@ public:
     //custom
     void setClicked(bool click_);
     virtual void setMidiLearnActive(bool active_);
-    virtual vector <string> getAttributesForMidiLearn();
+//    virtual vector <string> getAttributesForMidiLearn();
     virtual void setEditLeftAudioInActive(bool active_);
     virtual void setEditRightAudioInActive(bool active_);
-    virtual vector <string> getAttributesForAudioIn();
+    virtual void setEditOSCActive(bool active_);
+//    virtual vector <string> getAttributesForAudioIn();
+    virtual vector <string> getAttributesClicked();
     
 protected:
 	virtual void render();

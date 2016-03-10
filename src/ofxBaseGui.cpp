@@ -59,7 +59,8 @@ ofxBaseGui::fillColor(128),
 ofxBaseGui::clickedColor(150,150,250),
 ofxBaseGui::midiLearnColor(176,217,24),
 ofxBaseGui::leftAudioInColor(255,224,65),
-ofxBaseGui::rightAudioInColor(255,150,65);
+ofxBaseGui::rightAudioInColor(255,150,65),
+ofxBaseGui::oscColor(104,196,196);
 
 int ofxBaseGui::textPadding = 4;
 int ofxBaseGui::defaultWidth = 200;
@@ -82,6 +83,7 @@ ofxBaseGui::ofxBaseGui(){
     thisMidiLearnColor=midiLearnColor;
     thisLeftAudioInColor=leftAudioInColor;
     thisRightAudioInColor=rightAudioInColor;
+    thisOSCColor=oscColor;
     
     bRegisteredForMouseEvents = false;
     bRegisteredForKeyEvents   = false;
@@ -97,9 +99,11 @@ ofxBaseGui::ofxBaseGui(){
     clicked                 = false;
     selectedForLeftAudio    = false;
     selectedForRightAudio   = false;
+    selectedForOSC          = false;
     midiLearnActive         = false;
     editLeftAudioInActive   = false;
     editRightAudioInActive  = false;
+    editOSCActive           = false;
     commandPressed          = false;
 }
 
@@ -406,19 +410,32 @@ void ofxBaseGui::loadStencilFromHex(ofImage& img, unsigned char* data) {
     img.update();
 }
 
-vector<string> ofxBaseGui::getAttributesForMidiLearn() {
-    
-    vector <string> result;
-    if (clicked) {
-        result.push_back(getName());
-    }
-    return result;
-}
+//vector<string> ofxBaseGui::getAttributesForMidiLearn() {
+//    
+//    vector <string> result;
+//    if (clicked) {
+//        result.push_back(getName());
+//    }
+//    return result;
+//}
+//
+//vector<string> ofxBaseGui::getAttributesForAudioIn() {
+//    
+//    vector <string> result;
+//    if (clicked) {
+//        result.push_back(getName());
+//    }
+//    return result;
+//}
 
-vector<string> ofxBaseGui::getAttributesForAudioIn() {
-    
+vector<string> ofxBaseGui::getAttributesClicked() {
+
     vector <string> result;
-    if (clicked) {
+    if ((clicked && midiLearnActive) ||
+        (selectedForRightAudio && editRightAudioInActive) ||
+        (selectedForLeftAudio && editLeftAudioInActive) ||
+        (selectedForOSC && editOSCActive)) {
+        
         result.push_back(getName());
     }
     return result;

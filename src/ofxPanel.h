@@ -17,13 +17,15 @@ public:
     void setMidiLearnActive(bool active_);
     void setEditLeftAudioInActive(bool active_);
     void setEditRightAudioInActive(bool active_);
+    void setEditOSCActive(bool active_);
 
 	ofEvent<void> loadPressedE;
 	ofEvent<void> savePressedE;
     
     //custom
-    vector<string> getAttributesForMidiLearn();
-    vector<string> getAttributesForAudioIn();
+//    vector<string> getAttributesForMidiLearn();
+//    vector<string> getAttributesForAudioIn();
+    vector<string> getAttributesClicked();
     
 protected:
 	void render();

@@ -169,9 +169,10 @@ void ofxPanel::setMidiLearnActive(bool active_) {
             collection[i]->setClicked(false);
         }
     }
-    midiLearnActive   = active_;
-    editRightAudioInActive = false;
-    editLeftAudioInActive = false;
+    midiLearnActive         = active_;
+    editRightAudioInActive  = false;
+    editLeftAudioInActive   = false;
+    editOSCActive           = false;
 }
 
 void ofxPanel::setEditLeftAudioInActive(bool active_) {
@@ -183,8 +184,9 @@ void ofxPanel::setEditLeftAudioInActive(bool active_) {
             collection[i]->setClicked(false);
         }
     }
-    editLeftAudioInActive = active_;
-    midiLearnActive   = false;
+    editLeftAudioInActive   = active_;
+    midiLearnActive         = false;
+    editOSCActive           = false;
 }
 
 void ofxPanel::setEditRightAudioInActive(bool active_) {
@@ -196,28 +198,57 @@ void ofxPanel::setEditRightAudioInActive(bool active_) {
             collection[i]->setClicked(false);
         }
     }
-    editRightAudioInActive = active_;
-    midiLearnActive   = false;
+    editRightAudioInActive  = active_;
+    midiLearnActive         = false;
+    editOSCActive           = false;
 }
 
-vector<string> ofxPanel::getAttributesForMidiLearn() {
+void ofxPanel::setEditOSCActive(bool active_) {
     
-    vector<string> result, partialResult;
     for(int i = 0; i < (int)collection.size(); i++){
-        partialResult = collection[i]->getAttributesForMidiLearn();
-        if (partialResult.size() > 0) {
-            result.insert(result.end(), partialResult.begin(), partialResult.end());
+        collection[i]->setEditOSCActive(active_);
+        
+        if (!active_){
+            collection[i]->setClicked(false);
         }
     }
-    partialResult.clear();
-    return result;
+    editOSCActive           = active_;
+    editRightAudioInActive  = false;
+    editLeftAudioInActive   = false;
+    midiLearnActive         = false;
 }
 
-vector<string> ofxPanel::getAttributesForAudioIn() {
+//vector<string> ofxPanel::getAttributesForMidiLearn() {
+//    
+//    vector<string> result, partialResult;
+//    for(int i = 0; i < (int)collection.size(); i++){
+//        partialResult = collection[i]->getAttributesForMidiLearn();
+//        if (partialResult.size() > 0) {
+//            result.insert(result.end(), partialResult.begin(), partialResult.end());
+//        }
+//    }
+//    partialResult.clear();
+//    return result;
+//}
+//
+//vector<string> ofxPanel::getAttributesForAudioIn() {
+//    
+//    vector<string> result, partialResult;
+//    for(int i = 0; i < (int)collection.size(); i++){
+//        partialResult = collection[i]->getAttributesForAudioIn();
+//        if (partialResult.size() > 0) {
+//            result.insert(result.end(), partialResult.begin(), partialResult.end());
+//        }
+//    }
+//    partialResult.clear();
+//    return result;
+//}
+
+vector<string> ofxPanel::getAttributesClicked() {
     
     vector<string> result, partialResult;
     for(int i = 0; i < (int)collection.size(); i++){
-        partialResult = collection[i]->getAttributesForAudioIn();
+        partialResult = collection[i]->getAttributesClicked();
         if (partialResult.size() > 0) {
             result.insert(result.end(), partialResult.begin(), partialResult.end());
         }

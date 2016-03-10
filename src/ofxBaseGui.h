@@ -66,13 +66,16 @@ public:
     void setDraggable(bool drag_) { draggable = drag_; };
     virtual void setClicked(bool click_) { clicked = click_; };
     virtual bool isClicked() { return clicked; };
-    virtual void setMidiLearnActive(bool active_) { midiLearnActive = active_; editLeftAudioInActive = false; editRightAudioInActive = false; };
-    virtual vector<string> getAttributesForMidiLearn();
-    virtual void setEditLeftAudioInActive(bool active_) { editLeftAudioInActive = active_; midiLearnActive = false; };
-    virtual void setEditRightAudioInActive(bool active_) { editRightAudioInActive = active_; midiLearnActive = false; };
+    virtual void setMidiLearnActive(bool active_) { midiLearnActive = active_; editLeftAudioInActive = false; editRightAudioInActive = false; editOSCActive = false; };
+//    virtual vector<string> getAttributesForMidiLearn();
+    virtual void setEditLeftAudioInActive(bool active_) { editLeftAudioInActive = active_; midiLearnActive = false; editOSCActive = false; };
+    virtual void setEditRightAudioInActive(bool active_) { editRightAudioInActive = active_; midiLearnActive = false; editOSCActive = false; };
+    virtual void setEditOSCActive(bool active_) { editOSCActive = active_; editLeftAudioInActive = false; editRightAudioInActive = false; midiLearnActive = false; };
     void setSelectedForLeftAudio(bool active_) { selectedForLeftAudio = active_; };
     void setSelectedForRightAudio(bool active_) { selectedForRightAudio = active_; };
-    virtual vector<string> getAttributesForAudioIn();
+    void setSelectedForOSC(bool active_) { selectedForOSC = active_; };
+//    virtual vector<string> getAttributesForAudioIn();
+    virtual vector<string> getAttributesClicked();
 
     void registerMouseEvents();
     void registerKeyEvents();
@@ -111,6 +114,7 @@ protected:
     static ofColor midiLearnColor;
     static ofColor leftAudioInColor;
     static ofColor rightAudioInColor;
+    static ofColor oscColor;
 
 	ofColor thisHeaderBackgroundColor;
 	ofColor thisBackgroundColor;
@@ -121,6 +125,7 @@ protected:
     ofColor thisMidiLearnColor;
     ofColor thisLeftAudioInColor;
     ofColor thisRightAudioInColor;
+    ofColor thisOSCColor;
 
 	static int textPadding;
 	static int defaultWidth;
@@ -136,9 +141,11 @@ protected:
     bool clicked;
     bool selectedForLeftAudio;
     bool selectedForRightAudio;
+    bool selectedForOSC;
     bool midiLearnActive;
     bool editLeftAudioInActive;
     bool editRightAudioInActive;
+    bool editOSCActive;
     bool commandPressed;
     ofPath border;
 

@@ -71,7 +71,7 @@ void ofxTextInput::generateDraw(){
 
 void ofxTextInput::render() {
     
-    if (clicked && !midiLearnActive && !editLeftAudioInActive && !editRightAudioInActive) {
+    if (clicked && !midiLearnActive && !editLeftAudioInActive && !editRightAudioInActive && !editOSCActive) {
         border.draw();
     }
     

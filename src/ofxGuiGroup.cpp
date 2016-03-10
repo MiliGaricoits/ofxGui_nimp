@@ -512,41 +512,79 @@ void ofxGuiGroup::setEditRightAudioInActive(bool active_) {
     midiLearnActive        = false;
 }
 
-vector <string> ofxGuiGroup::getAttributesForMidiLearn() {
+void ofxGuiGroup::setEditOSCActive(bool active_) {
     
-    vector <string> result;
-    
-    if ((int)collection.size() > 0) {
-        vector<string> partialResult;
-        for(int i = 0; i < (int)collection.size(); i++){
-            partialResult = collection[i]->getAttributesForMidiLearn();
-            if (partialResult.size() > 0) {
-                result.insert(result.end(), partialResult.begin(), partialResult.end());
-            }
+    for(int i = 0; i < (int)collection.size(); i++){
+        collection[i]->setEditOSCActive(active_);
+        if (!active_){
+            collection[i]->setClicked(false);
         }
-        partialResult.clear();
     }
-    else if (clicked) {
-        result.push_back(getName());
-    }
-    return result;
+    editOSCActive          = active_;
+    midiLearnActive        = false;
+    editLeftAudioInActive  = false;
+    editRightAudioInActive = false;
 }
 
-vector <string> ofxGuiGroup::getAttributesForAudioIn() {
+//vector <string> ofxGuiGroup::getAttributesForMidiLearn() {
+//    
+//    vector <string> result;
+//    
+//    if ((int)collection.size() > 0) {
+//        vector<string> partialResult;
+//        for(int i = 0; i < (int)collection.size(); i++){
+//            partialResult = collection[i]->getAttributesForMidiLearn();
+//            if (partialResult.size() > 0) {
+//                result.insert(result.end(), partialResult.begin(), partialResult.end());
+//            }
+//        }
+//        partialResult.clear();
+//    }
+//    else if (clicked) {
+//        result.push_back(getName());
+//    }
+//    return result;
+//}
+//
+//vector <string> ofxGuiGroup::getAttributesForAudioIn() {
+//    
+//    vector <string> result;
+//    
+//    if ((int)collection.size() > 0) {
+//        vector<string> partialResult;
+//        for(int i = 0; i < (int)collection.size(); i++){
+//            partialResult = collection[i]->getAttributesForAudioIn();
+//            if (partialResult.size() > 0) {
+//                result.insert(result.end(), partialResult.begin(), partialResult.end());
+//            }
+//        }
+//        partialResult.clear();
+//    }
+//    else if (clicked) {
+//        result.push_back(getName());
+//    }
+//    return result;
+//}
+
+vector <string> ofxGuiGroup::getAttributesClicked() {
     
     vector <string> result;
     
     if ((int)collection.size() > 0) {
         vector<string> partialResult;
         for(int i = 0; i < (int)collection.size(); i++){
-            partialResult = collection[i]->getAttributesForAudioIn();
+            partialResult = collection[i]->getAttributesClicked();
             if (partialResult.size() > 0) {
                 result.insert(result.end(), partialResult.begin(), partialResult.end());
             }
         }
         partialResult.clear();
     }
-    else if (clicked) {
+    else if ((clicked && midiLearnActive) ||
+             (selectedForRightAudio && editRightAudioInActive) ||
+             (selectedForLeftAudio && editLeftAudioInActive) ||
+             (selectedForOSC && editOSCActive)) {
+        
         result.push_back(getName());
     }
     return result;
