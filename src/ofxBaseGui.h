@@ -66,14 +66,14 @@ public:
     void setDraggable(bool drag_) { draggable = drag_; };
     virtual void setClicked(bool click_) { clicked = click_; };
     virtual bool isClicked() { return clicked; };
-    virtual void setMidiLearnActive(bool active_) { midiLearnActive = active_; editLeftAudioInActive = false; editRightAudioInActive = false; editOSCActive = false; };
+    virtual void setMidiLearnActive(bool active_);
 //    virtual vector<string> getAttributesForMidiLearn();
-    virtual void setEditLeftAudioInActive(bool active_) { editLeftAudioInActive = active_; midiLearnActive = false; editOSCActive = false; };
-    virtual void setEditRightAudioInActive(bool active_) { editRightAudioInActive = active_; midiLearnActive = false; editOSCActive = false; };
-    virtual void setEditOSCActive(bool active_) { editOSCActive = active_; editLeftAudioInActive = false; editRightAudioInActive = false; midiLearnActive = false; };
-    void setSelectedForLeftAudio(bool active_) { selectedForLeftAudio = active_; };
-    void setSelectedForRightAudio(bool active_) { selectedForRightAudio = active_; };
-    void setSelectedForOSC(bool active_) { selectedForOSC = active_; };
+    virtual void setEditLeftAudioInActive(bool active_, int node_);
+    virtual void setEditRightAudioInActive(bool active_, int node_);
+    virtual void setEditOSCActive(bool active_, int node_);
+    void setSelectedForLeftAudio(bool active_, int node_);
+    void setSelectedForRightAudio(bool active_, int node_);
+    void setSelectedForOSC(bool active_, int node_);
 //    virtual vector<string> getAttributesForAudioIn();
     virtual vector<string> getAttributesClicked();
 
@@ -141,10 +141,12 @@ protected:
     bool clicked;
     bool selectedForLeftAudio;
     bool selectedForRightAudio;
+    int  selectedForNodeId;
     bool selectedForOSC;
     bool midiLearnActive;
     bool editLeftAudioInActive;
     bool editRightAudioInActive;
+    int  editNodeId;
     bool editOSCActive;
     bool commandPressed;
     ofPath border;

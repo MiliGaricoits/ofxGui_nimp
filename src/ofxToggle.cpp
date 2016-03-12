@@ -56,20 +56,23 @@ bool ofxToggle::mousePressed(ofMouseEventArgs & args){
         clicked = !clicked;
         if(editLeftAudioInActive) {
             selectedForLeftAudio = !selectedForLeftAudio;
+            selectedForNodeId = selectedForLeftAudio ? editNodeId : 0;
         }
         if(editRightAudioInActive) {
             selectedForRightAudio = !selectedForRightAudio;
+            selectedForNodeId = selectedForRightAudio ? editNodeId : 0;
         }
         if(editOSCActive) {
             selectedForOSC = !selectedForOSC;
+            selectedForNodeId = selectedForOSC ? editNodeId : 0;
         }
         return true;
     }
-    else if ((midiLearnActive
-              || editLeftAudioInActive
-              || editRightAudioInActive
-              || editOSCActive)                                 // if midi learn, osc or audio in is active, i was clicked,
-             && commandPressed && clicked) {                    // and command is beign pressed, i shouldn't change myself
+    else if ((midiLearnActive && clicked && commandPressed) // if midi learn or edit audio in are active, i was clicked
+             || editLeftAudioInActive                       // and command is beign pressed, i shouldn't change myself
+             || editRightAudioInActive
+             || editOSCActive) {
+        
         return true;
     }
     else {
@@ -152,10 +155,13 @@ void ofxToggle::generateDraw(){
 	textMesh = getTextMesh(getName(), b.x+textPadding + checkboxRect.width, b.y+b.height / 2 + 4);
     
     if (((clicked && midiLearnActive)
-         || (selectedForRightAudio && editRightAudioInActive)
-         || (selectedForLeftAudio && editLeftAudioInActive)
-         || (selectedForOSC && editOSCActive))
-        && (value.getName() != "Edit Left FFT Inputs" && value.getName() != "Edit Right FFT Inputs") && value.getName() != "Edit OSC Inputs") {
+        || (((selectedForRightAudio && editRightAudioInActive)
+        || (selectedForLeftAudio && editLeftAudioInActive)
+        || (selectedForOSC && editOSCActive))
+        && (selectedForNodeId == editNodeId)))
+        && (value.getName() != "Edit Right FFT Inputs")
+        && (value.getName() != "Edit Left FFT Inputs")
+        && (value.getName() != "Edit OSC Inputs"))  {
         
         border.clear();
         if (midiLearnActive){
@@ -179,10 +185,13 @@ void ofxToggle::generateDraw(){
 void ofxToggle::render(){
     
     if (((clicked && midiLearnActive)
-         || (selectedForRightAudio && editRightAudioInActive)
-         || (selectedForLeftAudio && editLeftAudioInActive)
-         || (selectedForOSC && editOSCActive)) &&
-        (value.getName() != "Edit Right FFT Inputs") && (value.getName() != "Edit Left FFT Inputs") && (value.getName() != "Edit OSC Inputs")) {
+        || (((selectedForRightAudio && editRightAudioInActive)
+        || (selectedForLeftAudio && editLeftAudioInActive)
+        || (selectedForOSC && editOSCActive))
+        && (selectedForNodeId == editNodeId)))
+        && (value.getName() != "Edit Right FFT Inputs")
+        && (value.getName() != "Edit Left FFT Inputs")
+        && (value.getName() != "Edit OSC Inputs")) {
         border.draw();
     }
     

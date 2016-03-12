@@ -486,41 +486,48 @@ void ofxGuiGroup::setMidiLearnActive(bool active_) {
     midiLearnActive        = active_;
     editLeftAudioInActive  = false;
     editRightAudioInActive = false;
+    editNodeId             = -1;
+    editOSCActive          = false;
 }
 
-void ofxGuiGroup::setEditLeftAudioInActive(bool active_) {
+void ofxGuiGroup::setEditLeftAudioInActive(bool active_, int node_) {
     
     for(int i = 0; i < (int)collection.size(); i++){
-        collection[i]->setEditLeftAudioInActive(active_);
+        collection[i]->setEditLeftAudioInActive(active_, node_);
         if (!active_){
             collection[i]->setClicked(false);
         }
     }
     editLeftAudioInActive = active_;
+    editNodeId            = active_ ? node_ : -1;
     midiLearnActive       = false;
+    editOSCActive         = false;
 }
 
-void ofxGuiGroup::setEditRightAudioInActive(bool active_) {
+void ofxGuiGroup::setEditRightAudioInActive(bool active_, int node_) {
     
     for(int i = 0; i < (int)collection.size(); i++){
-        collection[i]->setEditRightAudioInActive(active_);
+        collection[i]->setEditRightAudioInActive(active_, node_);
         if (!active_){
             collection[i]->setClicked(false);
         }
     }
     editRightAudioInActive = active_;
+    editNodeId             = active_ ? node_ : -1;
     midiLearnActive        = false;
+    editOSCActive          = false;
 }
 
-void ofxGuiGroup::setEditOSCActive(bool active_) {
+void ofxGuiGroup::setEditOSCActive(bool active_, int node_) {
     
     for(int i = 0; i < (int)collection.size(); i++){
-        collection[i]->setEditOSCActive(active_);
+        collection[i]->setEditOSCActive(active_, node_);
         if (!active_){
             collection[i]->setClicked(false);
         }
     }
     editOSCActive          = active_;
+    editNodeId             = active_ ? node_ : -1;
     midiLearnActive        = false;
     editLeftAudioInActive  = false;
     editRightAudioInActive = false;
@@ -580,10 +587,10 @@ vector <string> ofxGuiGroup::getAttributesClicked() {
         }
         partialResult.clear();
     }
-    else if ((clicked && midiLearnActive) ||
-             (selectedForRightAudio && editRightAudioInActive) ||
-             (selectedForLeftAudio && editLeftAudioInActive) ||
-             (selectedForOSC && editOSCActive)) {
+    else if ((clicked && midiLearnActive) ||                                                            // selected for midi learn
+             (selectedForRightAudio && editRightAudioInActive && selectedForNodeId == editNodeId) ||    // selected for right audio in
+             (selectedForLeftAudio && editLeftAudioInActive && selectedForNodeId == editNodeId) ||      // selected for left audio in
+             (selectedForOSC && editOSCActive && selectedForNodeId == editNodeId)) {                    // selected for osc
         
         result.push_back(getName());
     }

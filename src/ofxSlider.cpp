@@ -87,17 +87,20 @@ bool ofxSlider<Type>::mousePressed(ofMouseEventArgs & args){
         clicked = !clicked;
         if(editLeftAudioInActive) {
             selectedForLeftAudio = !selectedForLeftAudio;
+            selectedForNodeId = selectedForLeftAudio ? editNodeId : 0;
         }
         if(editRightAudioInActive) {
             selectedForRightAudio = !selectedForRightAudio;
+            selectedForNodeId = selectedForRightAudio ? editNodeId : 0;
         }
         if (editOSCActive) {
             selectedForOSC = !selectedForOSC;
+            selectedForNodeId = selectedForOSC ? editNodeId : 0;
         }
         return true;
     }
-    else if ((midiLearnActive && clicked && commandPressed) // if midi learn or edit audio in are active, i was clicked, and command is beign pressed
-            || editLeftAudioInActive                        // i shouldn't change myself
+    else if ((midiLearnActive && clicked && commandPressed) // if midi learn or edit audio in are active, i was clicked
+            || editLeftAudioInActive                        // and command is beign pressed, i shouldn't change myself
             || editRightAudioInActive
             || editOSCActive) {
     
@@ -172,22 +175,23 @@ void ofxSlider<Type>::generateDraw(){
 
 	generateText();
     
-    if ((clicked && midiLearnActive) ||
-        (selectedForRightAudio && editRightAudioInActive) ||
-        (selectedForLeftAudio && editLeftAudioInActive) ||
-        (selectedForOSC && editOSCActive)) {
+    if ((clicked && midiLearnActive)
+        || (((selectedForRightAudio && editRightAudioInActive)
+        || (selectedForLeftAudio && editLeftAudioInActive)
+        || (selectedForOSC && editOSCActive))
+        && (selectedForNodeId == editNodeId))) {
         
         border.clear();
         if (midiLearnActive){
             border.setFillColor(ofColor(thisMidiLearnColor, 255));
         }
-        else if (selectedForRightAudio && editRightAudioInActive) {
+        else if (selectedForRightAudio && editRightAudioInActive && (selectedForNodeId == editNodeId)) {
             border.setFillColor(ofColor(thisRightAudioInColor, 255));
         }
-        else if (selectedForLeftAudio && editLeftAudioInActive) {
+        else if (selectedForLeftAudio && editLeftAudioInActive && (selectedForNodeId == editNodeId)) {
             border.setFillColor(ofColor(thisLeftAudioInColor, 255));
         }
-        else if (selectedForOSC && editOSCActive) {
+        else if (selectedForOSC && editOSCActive && (selectedForNodeId == editNodeId)) {
             border.setFillColor(ofColor(thisOSCColor, 255));
         }
         border.setFilled(true);
@@ -215,9 +219,10 @@ template<typename Type>
 void ofxSlider<Type>::render(){
     
     if ((clicked && midiLearnActive)
-        || (selectedForRightAudio && editRightAudioInActive)
+        || (((selectedForRightAudio && editRightAudioInActive)
         || (selectedForLeftAudio && editLeftAudioInActive)
-        || (selectedForOSC && editOSCActive)) {
+        || (selectedForOSC && editOSCActive))
+        && (selectedForNodeId == editNodeId))) {
         border.draw();
     }
     

@@ -172,47 +172,51 @@ void ofxPanel::setMidiLearnActive(bool active_) {
     midiLearnActive         = active_;
     editRightAudioInActive  = false;
     editLeftAudioInActive   = false;
+    editNodeId              = -1;
     editOSCActive           = false;
 }
 
-void ofxPanel::setEditLeftAudioInActive(bool active_) {
+void ofxPanel::setEditLeftAudioInActive(bool active_, int node_) {
     
     for(int i = 0; i < (int)collection.size(); i++){
-        collection[i]->setEditLeftAudioInActive(active_);
+        collection[i]->setEditLeftAudioInActive(active_, node_);
         
         if (!active_){
             collection[i]->setClicked(false);
         }
     }
     editLeftAudioInActive   = active_;
+    editNodeId              = active_ ? node_ : -1;
     midiLearnActive         = false;
     editOSCActive           = false;
 }
 
-void ofxPanel::setEditRightAudioInActive(bool active_) {
+void ofxPanel::setEditRightAudioInActive(bool active_, int node_) {
     
     for(int i = 0; i < (int)collection.size(); i++){
-        collection[i]->setEditRightAudioInActive(active_);
+        collection[i]->setEditRightAudioInActive(active_, node_);
         
         if (!active_){
             collection[i]->setClicked(false);
         }
     }
     editRightAudioInActive  = active_;
+    editNodeId              = active_ ? node_ : -1;
     midiLearnActive         = false;
     editOSCActive           = false;
 }
 
-void ofxPanel::setEditOSCActive(bool active_) {
+void ofxPanel::setEditOSCActive(bool active_, int node_) {
     
     for(int i = 0; i < (int)collection.size(); i++){
-        collection[i]->setEditOSCActive(active_);
+        collection[i]->setEditOSCActive(active_, node_);
         
         if (!active_){
             collection[i]->setClicked(false);
         }
     }
     editOSCActive           = active_;
+    editNodeId              = active_ ? node_ : -1;
     editRightAudioInActive  = false;
     editLeftAudioInActive   = false;
     midiLearnActive         = false;

@@ -66,9 +66,9 @@ public:
     void setClicked(bool click_);
     virtual void setMidiLearnActive(bool active_);
 //    virtual vector <string> getAttributesForMidiLearn();
-    virtual void setEditLeftAudioInActive(bool active_);
-    virtual void setEditRightAudioInActive(bool active_);
-    virtual void setEditOSCActive(bool active_);
+    virtual void setEditLeftAudioInActive(bool active_, int node_);
+    virtual void setEditRightAudioInActive(bool active_, int node_);
+    virtual void setEditOSCActive(bool active_, int node_);
 //    virtual vector <string> getAttributesForAudioIn();
     virtual vector <string> getAttributesClicked();
     

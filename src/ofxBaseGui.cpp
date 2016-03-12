@@ -99,10 +99,12 @@ ofxBaseGui::ofxBaseGui(){
     clicked                 = false;
     selectedForLeftAudio    = false;
     selectedForRightAudio   = false;
+    selectedForNodeId       = 0;
     selectedForOSC          = false;
     midiLearnActive         = false;
     editLeftAudioInActive   = false;
     editRightAudioInActive  = false;
+    editNodeId              = -1;
     editOSCActive           = false;
     commandPressed          = false;
 }
@@ -410,6 +412,60 @@ void ofxBaseGui::loadStencilFromHex(ofImage& img, unsigned char* data) {
     img.update();
 }
 
+void ofxBaseGui::setMidiLearnActive(bool active_){
+    
+    midiLearnActive         = active_;
+    
+    editLeftAudioInActive   = false;
+    editRightAudioInActive  = false;
+    editOSCActive           = false;
+    editNodeId              = -1;
+}
+
+void ofxBaseGui::setEditLeftAudioInActive(bool active_, int node_) {
+    
+    editLeftAudioInActive   = active_;
+    editNodeId              = active_ ? node_ : -1;
+    
+    midiLearnActive         = false;
+    editOSCActive           = false;
+    
+}
+
+void ofxBaseGui::setEditRightAudioInActive(bool active_, int node_) {
+    
+    editRightAudioInActive  = active_;
+    editNodeId              = active_ ? node_ : -1;
+    
+    midiLearnActive         = false;
+    editOSCActive           = false;
+}
+
+void ofxBaseGui::setEditOSCActive(bool active_, int node_) {
+    
+    editOSCActive           = active_;
+    editNodeId              = active_ ? node_ : -1;
+    
+    editLeftAudioInActive   = false;
+    editRightAudioInActive  = false;
+    midiLearnActive         = false;
+}
+
+void ofxBaseGui::setSelectedForLeftAudio(bool active_, int node_) {
+    selectedForLeftAudio   = active_;
+    selectedForNodeId      = node_;
+}
+
+void ofxBaseGui::setSelectedForRightAudio(bool active_, int node_) {
+    selectedForRightAudio  = active_;
+    selectedForNodeId      = node_;
+}
+
+void ofxBaseGui::setSelectedForOSC(bool active_, int node_) {
+    selectedForOSC      = active_;
+    selectedForNodeId   = node_;
+}
+
 //vector<string> ofxBaseGui::getAttributesForMidiLearn() {
 //    
 //    vector <string> result;
@@ -431,10 +487,10 @@ void ofxBaseGui::loadStencilFromHex(ofImage& img, unsigned char* data) {
 vector<string> ofxBaseGui::getAttributesClicked() {
 
     vector <string> result;
-    if ((clicked && midiLearnActive) ||
-        (selectedForRightAudio && editRightAudioInActive) ||
-        (selectedForLeftAudio && editLeftAudioInActive) ||
-        (selectedForOSC && editOSCActive)) {
+    if ((clicked && midiLearnActive) ||                                                             // selected for midi learn
+        (selectedForRightAudio && editRightAudioInActive && selectedForNodeId == editNodeId) ||     // selected for right audio in
+        (selectedForLeftAudio && editLeftAudioInActive && selectedForNodeId == editNodeId) ||       // selected for left audio in
+        (selectedForOSC && editOSCActive && selectedForNodeId == editNodeId)) {                     // selected for osc
         
         result.push_back(getName());
     }
