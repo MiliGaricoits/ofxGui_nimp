@@ -453,7 +453,7 @@ void ofxBaseGui::setEditOSCActive(bool active_, int node_) {
 
 void ofxBaseGui::setSelectedForLeftAudio(bool active_, int node_, string name_) {
     
-    if (getParameter().getName() == name_) {
+    if (getParameter().getName() == name_ || (name_.compare(0, 5, "Blend")==0 && getParameter().getName().compare(0, 5, "Blend")==0)) {
         selectedForLeftAudio   = active_;
         selectedForNodeId      = node_;
     }
@@ -461,7 +461,7 @@ void ofxBaseGui::setSelectedForLeftAudio(bool active_, int node_, string name_) 
 
 void ofxBaseGui::setSelectedForRightAudio(bool active_, int node_, string name_) {
     
-    if (getParameter().getName() == name_) {
+    if (getParameter().getName() == name_ || (name_.compare(0, 5, "Blend")==0 && getParameter().getName().compare(0, 5, "Blend")==0)) {
         selectedForRightAudio  = active_;
         selectedForNodeId      = node_;
     }
@@ -469,7 +469,7 @@ void ofxBaseGui::setSelectedForRightAudio(bool active_, int node_, string name_)
 
 void ofxBaseGui::setSelectedForOSC(bool active_, int node_, string name_) {
     
-    if (getParameter().getName() == name_) {
+    if (getParameter().getName() == name_ || (name_.compare(0, 5, "Blend")==0 && getParameter().getName().compare(0, 5, "Blend")==0)) {
         selectedForOSC      = active_;
         selectedForNodeId   = node_;
     }
