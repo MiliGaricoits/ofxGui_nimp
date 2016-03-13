@@ -451,19 +451,28 @@ void ofxBaseGui::setEditOSCActive(bool active_, int node_) {
     midiLearnActive         = false;
 }
 
-void ofxBaseGui::setSelectedForLeftAudio(bool active_, int node_) {
-    selectedForLeftAudio   = active_;
-    selectedForNodeId      = node_;
+void ofxBaseGui::setSelectedForLeftAudio(bool active_, int node_, string name_) {
+    
+    if (getParameter().getName() == name_) {
+        selectedForLeftAudio   = active_;
+        selectedForNodeId      = node_;
+    }
 }
 
-void ofxBaseGui::setSelectedForRightAudio(bool active_, int node_) {
-    selectedForRightAudio  = active_;
-    selectedForNodeId      = node_;
+void ofxBaseGui::setSelectedForRightAudio(bool active_, int node_, string name_) {
+    
+    if (getParameter().getName() == name_) {
+        selectedForRightAudio  = active_;
+        selectedForNodeId      = node_;
+    }
 }
 
-void ofxBaseGui::setSelectedForOSC(bool active_, int node_) {
-    selectedForOSC      = active_;
-    selectedForNodeId   = node_;
+void ofxBaseGui::setSelectedForOSC(bool active_, int node_, string name_) {
+    
+    if (getParameter().getName() == name_) {
+        selectedForOSC      = active_;
+        selectedForNodeId   = node_;
+    }
 }
 
 //vector<string> ofxBaseGui::getAttributesForMidiLearn() {

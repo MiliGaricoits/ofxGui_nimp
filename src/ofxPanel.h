@@ -14,18 +14,22 @@ public:
 	ofxPanel * setup(const ofParameterGroup & parameters, string filename="settings.xml", float x = 10, float y = 10);
 
 	bool mouseReleased(ofMouseEventArgs & args);
-    void setMidiLearnActive(bool active_);
-    void setEditLeftAudioInActive(bool active_, int node_);
-    void setEditRightAudioInActive(bool active_, int node_);
-    void setEditOSCActive(bool active_, int node_);
+
 
 	ofEvent<void> loadPressedE;
 	ofEvent<void> savePressedE;
     
     //custom
+    void setMidiLearnActive(bool active_);
+    void setEditLeftAudioInActive(bool active_, int node_);
+    void setEditRightAudioInActive(bool active_, int node_);
+    void setEditOSCActive(bool active_, int node_);
+    virtual void setSelectedForLeftAudio(bool active_, int node_, string name_);
+    virtual void setSelectedForRightAudio(bool active_, int node_, string name_);
+    virtual void setSelectedForOSC(bool active_, int node_, string name_);
+    vector<string> getAttributesClicked();
 //    vector<string> getAttributesForMidiLearn();
 //    vector<string> getAttributesForAudioIn();
-    vector<string> getAttributesClicked();
     
 protected:
 	void render();

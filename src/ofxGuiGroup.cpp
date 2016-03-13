@@ -533,6 +533,27 @@ void ofxGuiGroup::setEditOSCActive(bool active_, int node_) {
     editRightAudioInActive = false;
 }
 
+void ofxGuiGroup::setSelectedForLeftAudio(bool active_, int node_, string name_) {
+    
+    for(int i = 0; i < (int)collection.size(); i++){
+        collection[i]->setSelectedForLeftAudio(active_, node_, name_);
+    }
+}
+
+void ofxGuiGroup::setSelectedForRightAudio(bool active_, int node_, string name_) {
+    
+    for(int i = 0; i < (int)collection.size(); i++){
+        collection[i]->setSelectedForRightAudio(active_, node_, name_);
+    }
+}
+
+void ofxGuiGroup::setSelectedForOSC(bool active_, int node_, string name_) {
+    
+    for(int i = 0; i < (int)collection.size(); i++){
+        collection[i]->setSelectedForOSC(active_, node_, name_);
+    }
+}
+
 //vector <string> ofxGuiGroup::getAttributesForMidiLearn() {
 //    
 //    vector <string> result;
