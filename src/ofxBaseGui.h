@@ -1,11 +1,12 @@
 #pragma once
 
+#include "ofMain.h"
 #include "ofConstants.h"
 #include "ofBaseTypes.h"
 #include "ofParameter.h"
 #include "ofTrueTypeFont.h"
 
-class ofxBaseGui{
+class ofxBaseGui : public ofNode {
 public:
 	ofxBaseGui();
 	
