@@ -505,3 +505,9 @@ vector<string> ofxBaseGui::getAttributesClicked() {
     }
     return result;
 }
+
+ofxBaseGui * ofxBaseGui::find(string name){
+    if (getName() == name)
+        return this;
+    else return NULL;
+}

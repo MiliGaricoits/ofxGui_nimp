@@ -5,6 +5,7 @@
 #include "ofBaseTypes.h"
 #include "ofParameter.h"
 #include "ofTrueTypeFont.h"
+#include "ofxOSCGuiEvent.h"
 
 class ofxBaseGui : public ofNode {
 public:
@@ -77,7 +78,11 @@ public:
     virtual vector<string> getAttributesClicked();
 //    virtual vector<string> getAttributesForAudioIn();
 //    virtual vector<string> getAttributesForMidiLearn();
+    bool         getSelectedForOSC() { return selectedForOSC; };
+    virtual ofxBaseGui* find(string name);
 
+    ofEvent<ofxOSCGuiEvent> addOrRemoveOSCInputBaseGui;
+    
     void registerMouseEvents();
     void registerKeyEvents();
     void unregisterMouseEvents();
@@ -90,6 +95,8 @@ public:
     
     virtual bool keyPressed(ofKeyEventArgs & args) = 0;
     virtual bool keyReleased(ofKeyEventArgs & args) = 0;
+    
+    
     
 protected:
 	virtual void render()=0;

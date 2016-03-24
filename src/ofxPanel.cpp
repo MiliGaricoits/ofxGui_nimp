@@ -281,3 +281,14 @@ vector<string> ofxPanel::getAttributesClicked() {
     partialResult.clear();
     return result;
 }
+
+ofxBaseGui * ofxPanel::find(string name){
+    ofxBaseGui* result;
+    for(int i=0; i<(int)collection.size(); i++){
+        result = collection[i]->find(name);
+        if(result != NULL){
+            return result;
+        }
+    }
+    return NULL;
+}

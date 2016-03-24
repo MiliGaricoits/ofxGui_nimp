@@ -211,8 +211,9 @@ bool ofxGuiGroup::mousePressed(ofMouseEventArgs & args){
 		ofMouseEventArgs a = args;
         bool result = false;
 		for(int i = 0; i < (int)collection.size(); i++){
-			if(collection[i]->mousePressed(a))
+            if(collection[i]->mousePressed(a)) {
                 result = true;
+            }
 		}
         return result;
 	}
@@ -360,6 +361,17 @@ ofxBaseGui * ofxGuiGroup::getControl(string name){
 		}
 	}
 	return NULL;
+}
+
+ofxBaseGui * ofxGuiGroup::find(string name){
+    ofxBaseGui* result;
+    for(int i=0; i<(int)collection.size(); i++){
+        result = collection[i]->find(name);
+        if(result != NULL){
+            return result;
+        }
+    }
+    return NULL;
 }
 
 bool ofxGuiGroup::setValue(float mx, float my, bool bCheck){
@@ -616,4 +628,9 @@ vector <string> ofxGuiGroup::getAttributesClicked() {
         result.push_back(getName());
     }
     return result;
+}
+
+void ofxGuiGroup::addOrRemoveOSCInput(ofxOSCGuiEvent &e_) {
+    
+    ofNotifyEvent(addOrRemoveOSCInputGui, e_);
 }

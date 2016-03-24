@@ -30,6 +30,7 @@ public:
     vector<string> getAttributesClicked();
 //    vector<string> getAttributesForMidiLearn();
 //    vector<string> getAttributesForAudioIn();
+    virtual ofxBaseGui* find(string name);
     
 protected:
 	void render();

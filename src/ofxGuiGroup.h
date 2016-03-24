@@ -55,7 +55,7 @@ public:
 	ofxGuiGroup & getGroup(string name);
     
 	ofxBaseGui * getControl(string name);
-	ofxBaseGui * getControl(int num);
+    ofxBaseGui * getControl(int num);
     
 	virtual ofAbstractParameter & getParameter();
 
@@ -74,6 +74,10 @@ public:
     virtual vector <string> getAttributesClicked();
     //    virtual vector <string> getAttributesForAudioIn();
     //    virtual vector <string> getAttributesForMidiLearn();
+    void addOrRemoveOSCInput(ofxOSCGuiEvent &e_);
+    virtual ofxBaseGui* find(string name);
+    
+    ofEvent<ofxOSCGuiEvent> addOrRemoveOSCInputGui;
     
 protected:
 	virtual void render();

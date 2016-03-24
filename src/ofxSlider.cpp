@@ -96,6 +96,13 @@ bool ofxSlider<Type>::mousePressed(ofMouseEventArgs & args){
         if (editOSCActive) {
             selectedForOSC = !selectedForOSC;
             selectedForNodeId = selectedForOSC ? editNodeId : 0;
+                
+            ofxOSCGuiEvent ev;
+            ev.oscNodeId = editNodeId;
+            ev.paramName = getName();
+            ev.add = selectedForOSC;
+            
+            ofNotifyEvent(addOrRemoveOSCInputBaseGui, ev);
         }
         return true;
     }
