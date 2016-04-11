@@ -502,6 +502,20 @@ void ofxGuiGroup::setMidiLearnActive(bool active_) {
     editOSCActive          = false;
 }
 
+void ofxGuiGroup::setMidiControlActive(int control_) {
+
+    for(int i = 0; i < (int)collection.size(); i++){
+        collection[i]->setMidiControlActive(control_);
+    }
+}
+
+void ofxGuiGroup::resetMidiControlActive(int control_) {
+    
+    for(int i = 0; i < (int)collection.size(); i++){
+        collection[i]->resetMidiControlActive(control_);
+    }
+}
+
 void ofxGuiGroup::setEditLeftAudioInActive(bool active_, int node_) {
     
     for(int i = 0; i < (int)collection.size(); i++){
@@ -563,6 +577,13 @@ void ofxGuiGroup::setSelectedForOSC(bool active_, int node_, string name_) {
     
     for(int i = 0; i < (int)collection.size(); i++){
         collection[i]->setSelectedForOSC(active_, node_, name_);
+    }
+}
+
+void ofxGuiGroup::setSelectedForMIDI(bool active_, int control_, string name_) {
+    
+    for(int i = 0; i < (int)collection.size(); i++){
+        collection[i]->setSelectedForMIDI(active_, control_, name_);
     }
 }
 

@@ -69,12 +69,15 @@ public:
     virtual void setClicked(bool click_) { clicked = click_; };
     virtual bool isClicked() { return clicked; };
     virtual void setMidiLearnActive(bool active_);
+    virtual void setMidiControlActive(int control_) { midiControlActive = control_; };
+    virtual void resetMidiControlActive(int control_) { if (selectedForMidiControl == control_) selectedForMidiControl = -1; };
     virtual void setEditLeftAudioInActive(bool active_, int node_);
     virtual void setEditRightAudioInActive(bool active_, int node_);
     virtual void setEditOSCActive(bool active_, int node_);
     virtual void setSelectedForLeftAudio(bool active_, int node_, string name_);
     virtual void setSelectedForRightAudio(bool active_, int node_, string name_);
     virtual void setSelectedForOSC(bool active_, int node_, string name_);
+    virtual void setSelectedForMIDI(bool active_, int control_, string name_);
     virtual vector<string> getAttributesClicked();
 //    virtual vector<string> getAttributesForAudioIn();
 //    virtual vector<string> getAttributesForMidiLearn();
@@ -151,6 +154,9 @@ protected:
     bool selectedForRightAudio;
     int  selectedForNodeId;
     bool selectedForOSC;
+    int  selectedForMidiControl;
+    bool selectedForMIDI;
+    int  midiControlActive;
     bool midiLearnActive;
     bool editLeftAudioInActive;
     bool editRightAudioInActive;

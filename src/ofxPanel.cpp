@@ -176,6 +176,20 @@ void ofxPanel::setMidiLearnActive(bool active_) {
     editOSCActive           = false;
 }
 
+void ofxPanel::setMidiControlActive(int control_) {
+    
+    for(int i = 0; i < (int)collection.size(); i++){
+        collection[i]->setMidiControlActive(control_);
+    }
+}
+
+void ofxPanel::resetMidiControlActive(int control_) {
+    
+    for(int i = 0; i < (int)collection.size(); i++){
+        collection[i]->resetMidiControlActive(control_);
+    }
+}
+
 void ofxPanel::setEditLeftAudioInActive(bool active_, int node_) {
     
     for(int i = 0; i < (int)collection.size(); i++){
@@ -240,6 +254,13 @@ void ofxPanel::setSelectedForOSC(bool active_, int node_, string name_) {
     
     for(int i = 0; i < (int)collection.size(); i++){
         collection[i]->setSelectedForOSC(active_, node_, name_);
+    }
+}
+
+void ofxPanel::setSelectedForMIDI(bool active_, int control_, string name_) {
+    
+    for(int i = 0; i < (int)collection.size(); i++){
+        collection[i]->setSelectedForMIDI(active_, control_, name_);
     }
 }
 

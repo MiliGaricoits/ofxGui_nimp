@@ -102,6 +102,9 @@ ofxBaseGui::ofxBaseGui(){
     selectedForNodeId       = 0;
     selectedForOSC          = false;
     midiLearnActive         = false;
+    selectedForMIDI         = false;
+    selectedForMidiControl  = -1;
+    midiControlActive       = -1;
     editLeftAudioInActive   = false;
     editRightAudioInActive  = false;
     editNodeId              = -1;
@@ -475,6 +478,14 @@ void ofxBaseGui::setSelectedForOSC(bool active_, int node_, string name_) {
     }
 }
 
+void ofxBaseGui::setSelectedForMIDI(bool active_, int control_, string name_) {
+    
+    if (getParameter().getName() == name_ || (name_.compare(0, 5, "Blend")==0 && getParameter().getName().compare(0, 5, "Blend")==0)) {
+        selectedForMIDI        = active_;
+        selectedForMidiControl = control_;
+    }
+}
+
 //vector<string> ofxBaseGui::getAttributesForMidiLearn() {
 //    
 //    vector <string> result;
@@ -485,7 +496,7 @@ void ofxBaseGui::setSelectedForOSC(bool active_, int node_, string name_) {
 //}
 //
 //vector<string> ofxBaseGui::getAttributesForAudioIn() {
-//    
+//
 //    vector <string> result;
 //    if (clicked) {
 //        result.push_back(getName());

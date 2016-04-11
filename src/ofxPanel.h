@@ -21,12 +21,15 @@ public:
     
     //custom
     void setMidiLearnActive(bool active_);
+    void setMidiControlActive(int control_);
+    void resetMidiControlActive(int control_);
     void setEditLeftAudioInActive(bool active_, int node_);
     void setEditRightAudioInActive(bool active_, int node_);
     void setEditOSCActive(bool active_, int node_);
     virtual void setSelectedForLeftAudio(bool active_, int node_, string name_);
     virtual void setSelectedForRightAudio(bool active_, int node_, string name_);
     virtual void setSelectedForOSC(bool active_, int node_, string name_);
+    virtual void setSelectedForMIDI(bool active_, int control_, string name_);
     vector<string> getAttributesClicked();
 //    vector<string> getAttributesForMidiLearn();
 //    vector<string> getAttributesForAudioIn();

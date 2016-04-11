@@ -162,6 +162,7 @@ void ofxToggle::generateDraw(){
 	textMesh = getTextMesh(getName(), b.x+textPadding + checkboxRect.width, b.y+b.height / 2 + 4);
     
     if (((clicked && midiLearnActive)
+        || (midiLearnActive && midiControlActive != -1 && (midiControlActive == selectedForMidiControl))
         || (((selectedForRightAudio && editRightAudioInActive)
         || (selectedForLeftAudio && editLeftAudioInActive)
         || (selectedForOSC && editOSCActive))
@@ -185,13 +186,15 @@ void ofxToggle::generateDraw(){
         }
         border.setFilled(true);
         border.rectangle(b.x -1, b.y -1, b.width +2, b.height +2);
-        clicked = true;
+        
+        (midiLearnActive && midiControlActive != -1 && (midiControlActive == selectedForMidiControl)) ? clicked = false : clicked = true;
     }
 }
 
 void ofxToggle::render(){
     
     if (((clicked && midiLearnActive)
+        || (midiLearnActive && midiControlActive != -1 && (midiControlActive == selectedForMidiControl))
         || (((selectedForRightAudio && editRightAudioInActive)
         || (selectedForLeftAudio && editLeftAudioInActive)
         || (selectedForOSC && editOSCActive))
