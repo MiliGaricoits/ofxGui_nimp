@@ -55,9 +55,15 @@ void ofxTextInput::generateDraw(){
         name = getName() + ": ";
     }
     
-    if (text.length() > 24) {
-        displayText = text.substr(cursorPosition-24, cursorPosition);
+    if (cursorPosition > 24) {
         cursorPositionDisplay = 24;
+        displayText = text.substr(cursorPosition-24, cursorPositionDisplay  );
+    } else {
+        if(text.length() > 24){
+            displayText = text.substr(0, 24);
+        } else {
+            displayText = text;
+        }
     }
     textMesh = getTextMesh(displayText, b.x + textPadding, b.y + b.height / 2 + 4);
     
