@@ -22,8 +22,15 @@ ofxTextInput::~ofxTextInput(){
 
 ofxTextInput* ofxTextInput::setup(ofParameter<string> _value, float width, float height) {
     value.makeReferenceTo(_value);
-    text = _value;
-    displayText = _value;
+    name = "";
+    cursorPositionInit = 0;
+    if(!getName().empty()){
+        name = getName() + ": ";
+        cursorPositionInit = name.length();
+    }
+    text = name + _value.get();
+    displayText = name + _value.get();
+    
     b.width  = width;
     b.height = height;
     cursorPosition = text.length();
@@ -49,11 +56,6 @@ void ofxTextInput::generateDraw(){
     bg.setFillColor(thisBackgroundColor);
     bg.setFilled(true);
     bg.rectangle(b);
-    
-    string name;
-    if(!getName().empty()){
-        name = getName() + ": ";
-    }
     
     if (cursorPosition > 24) {
         cursorPositionDisplay = 24;
@@ -172,7 +174,7 @@ bool ofxTextInput::keyPressed(ofKeyEventArgs &args) {
         switch (args.key)
         {
             case OF_KEY_BACKSPACE:
-                if (text.size() > 0 && cursorPosition > 0) {
+                if (text.size() > 0 && cursorPosition > cursorPositionInit) {
                     
                     cursorPosition--;
                     (text.erase(cursorPosition, 1));
@@ -185,7 +187,7 @@ bool ofxTextInput::keyPressed(ofKeyEventArgs &args) {
                 break;
                 
             case OF_KEY_DEL:
-                if (text.size() > 0 && cursorPosition < text.length()) {
+                if (text.size() > 0 && (cursorPosition) < text.length()) {
                     
                     (text.erase(cursorPosition, 1));
                     //recalculateDisplayString();
@@ -197,7 +199,7 @@ bool ofxTextInput::keyPressed(ofKeyEventArgs &args) {
                 
             case OF_KEY_RIGHT:
             case OF_KEY_DOWN:
-                if(cursorPosition < text.length()) {
+                if((cursorPosition) < text.length()) {
                     
                     cursorPosition++;
                     //recalculateDisplayString();
@@ -206,7 +208,7 @@ bool ofxTextInput::keyPressed(ofKeyEventArgs &args) {
                 
             case OF_KEY_LEFT:
             case OF_KEY_UP:
-                if(cursorPosition > 0) {
+                if(cursorPosition > cursorPositionInit) {
                     
                     cursorPosition--;
                     //recalculateDisplayString();

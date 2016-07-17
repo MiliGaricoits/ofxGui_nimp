@@ -56,12 +56,11 @@ protected:
     ofParameter<string> value;
     string text;
     string displayText;
+    string name;
     ofPath bg;
     ofVboMesh textMesh;
     bool bGuiActive;
     float lastTimeCursorMoved;
-    unsigned int cursorPosition;
-    unsigned int cursorPositionDisplay;
-    unsigned int firstVisibleCharacterIndex;
+    unsigned int cursorPosition, cursorPositionDisplay, cursorPositionInit, firstVisibleCharacterIndex;
 };
 
